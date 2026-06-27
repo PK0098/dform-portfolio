@@ -1,299 +1,310 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Dform Objects — Small objects, painted by hand</title>
-<meta name="description" content="Dform Objects — one-of-one handmade clay objects, painted by hand in Tehran and shipped worldwide from Canada.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-<style>
-  @font-face{font-family:"Ravi";src:url("assets/fonts/Ravi-Regular.otf") format("opentype");font-weight:400;font-display:swap}
-  @font-face{font-family:"Ravi";src:url("assets/fonts/Ravi-SemiBold.otf") format("opentype");font-weight:600;font-display:swap}
-
-  :root{
-    --ink:#28201a; --stone:#dbdcd5; --paper:#e7e7e0; --white:#fff;
-    --orange:#f06924; --yellow:#f9bd41; --blue:#58a6c5; --hairline:#c7c8c1;
-    --muted:#5c544c; --subtle:#8a837a;
-    --mono:"Space Mono","Courier New",monospace; --farsi:"Ravi",Tahoma,sans-serif;
-    --edge:1.5px solid var(--ink);
-  }
-  *{box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{
-    margin:0;background:var(--stone);color:var(--ink);font-family:var(--mono);
-    font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden;
-    background-image:radial-gradient(120% 80% at 80% -10%, #e9e9e2 0%, var(--stone) 45%, #cfd0c8 100%);
-  }
-  /* grain */
-  body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:9;opacity:.5;mix-blend-mode:multiply;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");}
-  a{color:inherit;text-decoration:none}
-  .wrap{width:100%;max-width:1240px;margin:0 auto;padding:0 28px}
-  .eyebrow{font-size:11px;font-weight:700;letter-spacing:.28em;text-transform:uppercase}
-  .fa{font-family:var(--farsi);direction:rtl}
-
-  /* ---------- top bar ---------- */
-  header.bar{position:fixed;top:0;left:0;right:0;z-index:20;backdrop-filter:blur(6px);
-    background:rgba(219,220,213,.72);border-bottom:var(--edge);}
-  .bar__in{display:flex;align-items:center;justify-content:space-between;height:62px}
-  .bar__logo{height:30px;width:auto}
-  .bar__nav{display:flex;gap:26px;align-items:center}
-  .bar__nav a{font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding-bottom:2px;border-bottom:2px solid transparent}
-  .bar__nav a:hover{border-color:var(--orange)}
-  .bar__shop{background:var(--ink);color:var(--stone);padding:9px 16px;border:var(--edge)}
-  .bar__shop:hover{background:var(--orange);color:var(--ink);border-color:var(--orange)}
-  .bar__nav .hideSm{}
-
-  /* ---------- hero ---------- */
-  .hero{position:relative;min-height:100svh;display:flex;align-items:center;padding-top:62px}
-  .hero__copy{position:relative;z-index:5;max-width:680px}
-  .hero .kick{color:var(--orange);margin-bottom:22px}
-  .hero .kick b{color:var(--ink)}
-  .wordmark{height:clamp(82px,15vw,190px);width:auto;display:block;margin:0 0 6px -6px}
-  .hero h1{font-size:clamp(30px,4.6vw,58px);line-height:1.04;margin:14px 0 0;font-weight:700;letter-spacing:-.01em}
-  .hero h1 .stroke{position:relative;white-space:nowrap}
-  .hero h1 .stroke::after{content:"";position:absolute;left:0;right:-2px;bottom:.06em;height:.16em;background:var(--orange);z-index:-1;
-    clip-path:polygon(0 42%,24% 10%,58% 34%,100% 0,96% 60%,60% 82%,25% 60%,4% 100%)}
-  .hero h2.fa{font-size:clamp(20px,3vw,34px);font-weight:600;color:var(--muted);margin:10px 0 0}
-  .hero p.lead{max-width:440px;color:var(--muted);margin:26px 0 0;font-size:15px}
-  .hero__cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:34px}
-  .btn{display:inline-flex;align-items:center;gap:10px;min-height:52px;padding:0 26px;border:var(--edge);
-    font-weight:700;font-size:12px;letter-spacing:.2em;text-transform:uppercase;background:var(--ink);color:var(--stone);
-    transition:transform .15s,background .15s,color .15s}
-  .btn:hover{background:var(--orange);border-color:var(--orange);color:var(--ink);transform:translateY(-2px)}
-  .btn--ghost{background:transparent;color:var(--ink)}
-  .btn--ghost:hover{background:var(--ink);color:var(--stone);border-color:var(--ink)}
-
-  /* floating objects (desktop) */
-  .floaters{position:absolute;inset:0;z-index:1;pointer-events:none}
-  .floaters img{position:absolute;filter:drop-shadow(0 18px 26px rgba(40,32,26,.28));animation:float 7s ease-in-out infinite}
-  .f1{width:200px;right:6%;top:14%;animation-delay:0s;transform:rotate(6deg)}
-  .f2{width:150px;right:26%;top:54%;animation-delay:.8s;transform:rotate(-5deg)}
-  .f3{width:120px;right:2%;top:62%;animation-delay:1.6s;transform:rotate(8deg)}
-  .f4{width:128px;right:38%;top:8%;animation-delay:1.1s;transform:rotate(-9deg)}
-  .f5{width:104px;right:16%;top:84%;animation-delay:.4s;transform:rotate(4deg)}
-  @keyframes float{0%,100%{translate:0 0}50%{translate:0 -16px}}
-  .scrollcue{position:absolute;bottom:22px;left:28px;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--subtle);z-index:5}
-  .scrollcue::before{content:"";display:block;width:1px;height:30px;background:var(--subtle);margin:0 auto 8px;animation:cue 1.8s ease-in-out infinite}
-  @keyframes cue{0%,100%{opacity:.3;transform:scaleY(.5)}50%{opacity:1;transform:scaleY(1)}}
-
-  /* ---------- manifesto ---------- */
-  .manifesto{background:var(--ink);color:var(--stone);border-block:var(--edge);padding:72px 0}
-  .manifesto .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:40px}
-  .manifesto .big{grid-column:1/-1;font-size:clamp(26px,3.6vw,46px);line-height:1.12;font-weight:700;max-width:18ch;margin:0 0 18px}
-  .manifesto .big em{color:var(--yellow);font-style:normal}
-  .stat .n{color:var(--yellow);font-size:13px;font-weight:700;letter-spacing:.2em;text-transform:uppercase}
-  .stat p{color:#c7c8c1;margin:8px 0 0;font-size:13.5px}
-
-  /* ---------- gallery ---------- */
-  .gallery{padding:78px 0 30px}
-  .sec-head{display:flex;justify-content:space-between;align-items:baseline;border-bottom:var(--edge);padding-bottom:16px;margin-bottom:36px;gap:16px;flex-wrap:wrap}
-  .sec-head h3{margin:0;font-size:clamp(20px,2.6vw,30px);letter-spacing:.02em}
-  .sec-head .meta{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--subtle)}
-  .grid-objs{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-  .card{position:relative;background:linear-gradient(180deg,#ececn,#e6e6df);background:#e9e9e2;border:var(--edge);
-    aspect-ratio:4/5;display:flex;align-items:center;justify-content:center;padding:18px;overflow:hidden;cursor:pointer;
-    transition:transform .2s,box-shadow .2s}
-  .card:hover{transform:translateY(-5px);box-shadow:0 16px 30px rgba(40,32,26,.22);z-index:2}
-  .card img{max-width:100%;max-height:100%;object-fit:contain;filter:drop-shadow(0 8px 14px rgba(40,32,26,.22));transition:transform .25s}
-  .card:hover img{transform:scale(1.05)}
-  .card .label{position:absolute;left:0;right:0;bottom:0;background:var(--ink);color:var(--stone);
-    padding:9px 12px;transform:translateY(101%);transition:transform .22s}
-  .card:hover .label{transform:translateY(0)}
-  .card .label .t{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
-  .card .label .s{font-size:10px;color:#a8a298;letter-spacing:.04em}
-  .card .num{position:absolute;top:8px;left:10px;font-size:10px;color:var(--subtle);letter-spacing:.1em}
-  .tall{grid-row:span 1}
-
-  /* ---------- portraits band ---------- */
-  .series{padding:40px 0 90px}
-  .series .strip{display:flex;gap:18px;overflow-x:auto;padding-bottom:14px;scroll-snap-type:x mandatory}
-  .series .strip::-webkit-scrollbar{height:6px}
-  .series .strip::-webkit-scrollbar-thumb{background:var(--hairline)}
-  .series figure{flex:0 0 auto;width:200px;margin:0;scroll-snap-align:start;text-align:center}
-  .series figure img{width:100%;height:240px;object-fit:contain;filter:drop-shadow(0 10px 16px rgba(40,32,26,.22))}
-  .series figcaption{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--subtle);margin-top:10px}
-
-  /* ---------- footer ---------- */
-  footer{background:var(--ink);color:var(--stone);border-top:var(--edge);padding:64px 0 40px}
-  .foot{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:36px}
-  .foot .mark{height:46px;filter:invert(1);margin-bottom:16px}
-  .foot p{color:#9b948b;font-size:13px;max-width:34ch}
-  .foot h4{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--stone);margin:0 0 14px}
-  .foot a{display:block;color:#9b948b;font-size:13px;padding:5px 0}
-  .foot a:hover{color:var(--yellow)}
-  .foot__bottom{margin-top:48px;padding-top:22px;border-top:1px solid rgba(219,220,213,.18);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;color:#7d766d;font-size:11px;letter-spacing:.1em}
-
-  /* reveal on load / scroll */
-  .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
-  .reveal.in{opacity:1;transform:none}
-  [data-d="1"]{transition-delay:.08s}[data-d="2"]{transition-delay:.16s}[data-d="3"]{transition-delay:.24s}[data-d="4"]{transition-delay:.32s}
-
-  /* ================= MOBILE ================= */
-  @media (max-width:760px){
-    .wrap{padding:0 18px}
-    .bar__in{height:56px}
-    .bar__nav .hideSm{display:none}
-    .bar__nav{gap:14px}
-    .hero{min-height:auto;padding:104px 0 36px;text-align:left}
-    .floaters{position:relative;inset:auto;height:auto;display:flex;gap:12px;justify-content:flex-start;margin-top:34px;flex-wrap:wrap}
-    .floaters img{position:static!important;animation:none;width:88px!important;transform:rotate(0)!important;filter:drop-shadow(0 10px 16px rgba(40,32,26,.25))}
-    .f4,.f5{display:none}
-    .hero__copy{max-width:none}
-    .scrollcue{display:none}
-    .manifesto{padding:52px 0}
-    .manifesto .grid{grid-template-columns:1fr;gap:24px}
-    .grid-objs{grid-template-columns:repeat(2,1fr);gap:12px}
-    .card .label{transform:translateY(0);position:static;padding:8px 10px}
-    .card{aspect-ratio:auto;flex-direction:column;padding:14px 14px 0}
-    .card img{height:150px}
-    .foot{grid-template-columns:1fr;gap:28px}
-    .series figure{width:150px}
-    .series figure img{height:180px}
-  }
-  @media (min-width:761px) and (max-width:1024px){
-    .grid-objs{grid-template-columns:repeat(3,1fr)}
-    .f4,.f5{display:none}
-  }
-  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
-</style>
+<script src="./support.js"></script>
 </head>
 <body>
-
-<header class="bar">
-  <div class="wrap bar__in">
-    <a href="#top"><img class="bar__logo" src="assets/logotype_english.svg" alt="Dform Objects"></a>
-    <nav class="bar__nav">
-      <a class="hideSm" href="#collection">Collection</a>
-      <a class="hideSm" href="#makers">The Makers</a>
-      <a class="bar__shop" href="https://dform.store" target="_blank" rel="noopener">Shop ↗</a>
-    </nav>
-  </div>
-</header>
-
-<main id="top">
-  <!-- HERO -->
-  <section class="hero">
-    <div class="wrap hero__copy">
-      <p class="eyebrow kick reveal">Handmade in Tehran · <b>Shipped worldwide from Canada</b></p>
-      <img class="wordmark reveal" data-d="1" src="assets/logotype_english.svg" alt="Dform">
-      <h1 class="reveal" data-d="2">Small objects,<br><span class="stroke">painted by hand.</span></h1>
-      <h2 class="fa reveal" data-d="2">اشیای کوچک، نقاشی‌شده با دست</h2>
-      <p class="lead reveal" data-d="3">One-of-a-kind clay pieces — hand-built, hand-painted, sealed. No molds, no repeats. When a piece leaves the studio, it is the only one of its kind anywhere.</p>
-      <div class="hero__cta reveal" data-d="4">
-        <a class="btn" href="https://dform.store" target="_blank" rel="noopener">Shop the drop →</a>
-        <a class="btn btn--ghost" href="#collection">See the collection</a>
-      </div>
-    </div>
-    <div class="floaters" aria-hidden="true">
-      <img class="f1" src="assets/objects/tile-01.png" alt="">
-      <img class="f2" src="assets/objects/tile-05.png" alt="">
-      <img class="f3" src="assets/objects/spoon-01.png" alt="">
-      <img class="f4" src="assets/objects/art-tile-03.png" alt="">
-      <img class="f5" src="assets/objects/portrait-05.png" alt="">
-    </div>
-    <div class="scrollcue">Scroll</div>
-  </section>
-
-  <!-- MANIFESTO -->
-  <section class="manifesto" id="makers">
-    <div class="wrap">
-      <p class="big reveal">Two artists, one kitchen table — and a habit of shaping <em>small objects out of clay</em> after work.</p>
-      <div class="grid">
-        <div class="stat reveal" data-d="1"><div class="n">Tehran · est. 2026</div><p>Where every piece is made, slowly and by hand.</p></div>
-        <div class="stat reveal" data-d="2"><div class="n">Two artists</div><p>One sculpts, one paints. Built, painted, and sealed entirely by hand.</p></div>
-        <div class="stat reveal" data-d="3"><div class="n">One of one</div><p>No molds, no repeats — never the same piece twice.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- GALLERY -->
-  <section class="gallery" id="collection">
-    <div class="wrap">
-      <div class="sec-head reveal">
-        <h3>The Collection</h3>
-        <span class="meta">Hand-painted clay · one of one</span>
-      </div>
-      <div class="grid-objs" id="grid"></div>
-    </div>
-  </section>
-
-  <!-- PORTRAIT SERIES -->
-  <section class="series">
-    <div class="wrap">
-      <div class="sec-head reveal">
-        <h3>Miniature Portraits <span class="fa" style="font-size:.7em;color:var(--subtle)">— مینیاتور</span></h3>
-        <span class="meta">Qajar-inspired series</span>
-      </div>
-      <div class="strip" id="strip"></div>
-    </div>
-  </section>
-</main>
-
-<footer>
-  <div class="wrap">
-    <div class="foot">
-      <div>
-        <img class="mark" src="assets/logotype_english.svg" alt="Dform Objects">
-        <p>Handmade objects from Tehran, shipped worldwide from Canada. One-of-one pieces, painted by hand.</p>
-      </div>
-      <div>
-        <h4>Explore</h4>
-        <a href="https://dform.store" target="_blank" rel="noopener">Shop the store ↗</a>
-        <a href="#collection">The collection</a>
-        <a href="#makers">The makers</a>
-      </div>
-      <div>
-        <h4>Find us</h4>
-        <a href="https://dform.store" target="_blank" rel="noopener">dform.store</a>
-        <a href="https://instagram.com/dform.objects" target="_blank" rel="noopener">@dform.objects</a>
-        <span style="color:#7d766d;font-size:12px;display:block;padding-top:6px" class="fa">ساخته‌شده با دست در تهران</span>
-      </div>
-    </div>
-    <div class="foot__bottom"><span>© 2026 Dform Objects — Tehran / Canada</span><span>Small objects, painted by hand.</span></div>
-  </div>
-</footer>
-
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Ravi';src:url('assets/fonts/Ravi-Regular.otf') format('opentype');font-weight:400;font-display:swap;}
+@font-face{font-family:'Ravi';src:url('assets/fonts/Ravi-SemiBold.otf') format('opentype');font-weight:600;font-display:swap;}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+html,body{margin:0;padding:0;background:#dbdcd5;}
+body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
+::selection{background:#f06924;color:#fff;}
+@keyframes dfPanel{from{transform:translateX(100%);}to{transform:translateX(0);}}
+@keyframes dfDim{from{opacity:0;}to{opacity:1;}}
+</style>
 <script>
-  // gallery data
-  const OBJECTS = [
-    ['art-tile-01','The Lovers','after Modigliani'],
-    ['tile-01','Giraffe in the Leaves','clay relief'],
-    ['art-tile-02','Self-Portrait','after Van Gogh'],
-    ['spoon-01','Painted Spoon № 1','decorative'],
-    ['tile-05','Cat with Tulips','clay relief'],
-    ['art-tile-03','Frida','after Kahlo'],
-    ['tile-02','Long Dog','clay relief'],
-    ['spoon-02','Painted Spoon № 2','decorative'],
-    ['tile-03','The Cottage','clay relief'],
-    ['portrait-05','Crowned Queen','miniature'],
-    ['tile-04','Bird at the Window','clay relief'],
-    ['spoon-03','Painted Spoon № 3','decorative'],
+if (window.top === window.self && window.matchMedia('(max-width: 760px)').matches) { location.replace('mobile.html'); }
+</script>
+</helmet>
+<div style="font-family:'Space Mono',monospace;color:#28201a;background:#dbdcd5;min-height:100vh;position:relative;">
+
+  <header style="position:fixed;top:0;left:0;right:0;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 max(20px,3vw);z-index:1500;background:rgba(219,220,213,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid #c7c8c1;">
+    <a href="#wall" style="display:flex;align-items:center;text-decoration:none;">
+      <img src="assets/logotype_english.svg" alt="DForm" style="height:30px;display:block;">
+    </a>
+    <nav style="display:flex;gap:clamp(16px,2.4vw,30px);align-items:center;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#28201a;">
+      <a href="#studio" style="color:inherit;text-decoration:none;padding-bottom:2px;border-bottom:1.5px solid transparent;" style-hover="color:#f06924;border-bottom-color:#f06924;">Studio</a>
+      <a href="#contact" style="color:inherit;text-decoration:none;padding-bottom:2px;border-bottom:1.5px solid transparent;" style-hover="color:#f06924;border-bottom-color:#f06924;">Contact</a>
+    </nav>
+  </header>
+
+  <section id="wall" ref="{{ wallRef }}" style="position:relative;min-height:100vh;overflow:hidden;background:#dbdcd5;">
+
+    <img src="assets/logotype_english.svg" aria-hidden="true" style="position:absolute;left:50%;top:55%;transform:translate(-50%,-50%);width:min(74vw,860px);opacity:.045;pointer-events:none;user-select:none;"/>
+
+    <div style="position:absolute;left:max(20px,4vw);top:120px;max-width:430px;z-index:6;pointer-events:none;">
+      <div style="display:flex;align-items:center;gap:9px;font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:#5c544c;">
+        <span style="width:7px;height:7px;background:#f06924;display:inline-block;"></span>Handmade · One of one
+      </div>
+      <h1 style="font-size:clamp(34px,5.2vw,64px);font-weight:700;line-height:1.02;letter-spacing:-.03em;margin:16px 0 0;">A wall of small worlds.</h1>
+      <p style="margin:20px 0 0;font-size:14px;line-height:1.7;color:#5c544c;max-width:370px;">Tiny clay tiles, painted and glazed by hand — each one entirely its own. Drag the pieces around. Make the wall yours.</p>
+    </div>
+
+    <sc-for list="{{ pieces }}" as="piece">
+      <div data-id="{{ piece.id }}" onPointerDown="{{ startDrag }}" style="{{ piece.wrapStyle }}" style-active="cursor:grabbing;">
+        <div role="img" aria-label="{{ piece.alt }}" style="{{ piece.imgStyle }}" style-hover="filter:drop-shadow(0 22px 22px rgba(40,32,26,.46));"></div>
+        <div style="margin-top:9px;display:flex;align-items:baseline;gap:8px;font-size:10px;letter-spacing:.08em;text-transform:uppercase;">
+          <span style="color:#f06924;font-weight:700;">{{ piece.no }}</span>
+          <span style="color:#28201a;">{{ piece.title }}</span>
+        </div>
+      </div>
+    </sc-for>
+
+    <div style="position:absolute;bottom:24px;left:50%;transform:translateX(-50%);font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:#8a837a;pointer-events:none;display:flex;align-items:center;gap:10px;">
+      <span style="font-size:13px;">⠿</span>drag the pieces · click to open
+    </div>
+
+    <button onClick="{{ resetWall }}" style="position:absolute;bottom:18px;right:max(16px,2vw);font-family:inherit;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#28201a;background:transparent;border:1.5px solid #28201a;padding:8px 12px;cursor:pointer;border-radius:0;" style-hover="background:#28201a;color:#dbdcd5;">↺ reset wall</button>
+  </section>
+
+  <section id="studio" style="background:#28201a;color:#dbdcd5;scroll-margin-top:64px;">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));align-items:stretch;">
+      <div style="min-height:520px;background:#2f2820;background-image:url('assets/studio-2.jpg');background-size:cover;background-position:center;"></div>
+      <div style="padding:clamp(40px,5vw,80px);display:flex;flex-direction:column;justify-content:center;">
+        <div style="font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:#f9bd41;">The Studio</div>
+        <h2 style="font-size:clamp(26px,3.2vw,40px);font-weight:700;letter-spacing:-.02em;line-height:1.06;margin:18px 0 0;">Made by hand,<br>one at a time.</h2>
+        <p style="font-size:14px;line-height:1.8;color:#9b948b;margin:24px 0 0;max-width:440px;">Every DForm object begins as a small slab of clay — pressed, textured and edged by hand, then painted in miniature and glazed. The marks of the maker stay in the surface, so no two pieces are ever alike.</p>
+        <p style="font-size:14px;line-height:1.8;color:#9b948b;margin:16px 0 0;max-width:440px;">A quiet menagerie of cats, dogs, birds and gardens — collectable objects made to be lived with.</p>
+        <div style="display:flex;gap:40px;margin-top:36px;flex-wrap:wrap;">
+          <div><div style="font-size:30px;font-weight:700;letter-spacing:-.02em;">1/1</div><div style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#9b948b;margin-top:6px;">every piece unique</div></div>
+          <div><div style="font-size:30px;font-weight:700;letter-spacing:-.02em;">100%</div><div style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#9b948b;margin-top:6px;">hand-painted</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact" style="background:#dbdcd5;color:#28201a;padding:80px max(20px,5vw) 36px;border-top:1.5px solid #28201a;scroll-margin-top:64px;">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:40px;align-items:start;">
+      <div>
+        <img src="assets/logotype_english.svg" alt="DForm" style="height:40px;display:block;">
+        <p style="font-size:13px;line-height:1.7;color:#5c544c;margin:20px 0 0;max-width:280px;">Collectable handmade objects for the home.</p>
+      </div>
+      <div>
+        <div style="font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:#8a837a;">Contact</div>
+        <div style="display:flex;flex-direction:column;gap:12px;margin-top:16px;font-size:13px;">
+          <a href="mailto:studio@dform.shop" style="display:flex;align-items:center;gap:9px;color:#28201a;text-decoration:none;" style-hover="color:#f06924;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14"></rect><path d="M3 6l9 7 9-7"></path></svg>studio@dform.shop</a>
+          <a href="https://instagram.com/dform.objects" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:9px;color:#28201a;text-decoration:none;" style-hover="color:#f06924;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4.2"></circle><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"></circle></svg>@dform.objects</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:#8a837a;">Acquire</div>
+        <p style="font-size:13px;line-height:1.7;color:#5c544c;margin:16px 0 0;max-width:260px;">Pieces are sold individually. Found one you love on the wall? Click it, then enquire — each is one of one.</p>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-top:56px;padding-top:20px;border-top:1px solid #c7c8c1;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#8a837a;">
+      <span>© 2026 DForm — all pieces one of a kind</span>
+      <span>Made by hand</span>
+    </div>
+  </footer>
+
+  <sc-if value="{{ showDetail }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;inset:0;z-index:3000;">
+      <div onClick="{{ closeDetail }}" style="position:absolute;inset:0;background:rgba(40,32,26,.45);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);animation:dfDim .25s ease;"></div>
+      <aside style="position:absolute;top:0;right:0;height:100%;width:min(430px,100%);background:#fff;border-left:1.5px solid #28201a;animation:dfPanel .34s cubic-bezier(.2,.85,.2,1);display:flex;flex-direction:column;overflow:auto;">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1.5px solid #28201a;position:sticky;top:0;background:#fff;z-index:2;">
+          <span style="font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#8a837a;">DForm · No. {{ selPiece.no }}</span>
+          <button onClick="{{ closeDetail }}" style="font-family:inherit;font-size:18px;line-height:1;background:transparent;border:1.5px solid #28201a;width:34px;height:34px;cursor:pointer;color:#28201a;border-radius:0;" style-hover="background:#f06924;border-color:#f06924;color:#fff;">×</button>
+        </div>
+        <div style="background:#e3e4dd;padding:32px;display:flex;justify-content:center;align-items:center;">
+          <div role="img" aria-label="{{ selPiece.alt }}" style="{{ selPiece.detailStyle }}"></div>
+        </div>
+        <div style="padding:26px 22px 30px;">
+          <div style="{{ selPiece.statusStyle }}">{{ selPiece.status }}</div>
+          <h3 style="font-size:26px;font-weight:700;letter-spacing:-.02em;line-height:1.1;margin:12px 0 0;">{{ selPiece.title }}</h3>
+          <p style="font-size:13px;line-height:1.7;color:#5c544c;margin:16px 0 0;">{{ selPiece.blurb }}</p>
+          <div style="margin-top:24px;border-top:1px solid #c7c8c1;">
+            <div style="display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px solid #c7c8c1;font-size:12px;"><span style="color:#8a837a;letter-spacing:.06em;">Materials</span><span style="text-align:right;max-width:62%;">{{ selPiece.materials }}</span></div>
+            <div style="display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px solid #c7c8c1;font-size:12px;"><span style="color:#8a837a;letter-spacing:.06em;">Dimensions</span><span>{{ selPiece.dims }}</span></div>
+            <div style="display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px solid #c7c8c1;font-size:12px;"><span style="color:#8a837a;letter-spacing:.06em;">Year</span><span>{{ selPiece.year }}</span></div>
+            <div style="display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px solid #c7c8c1;font-size:12px;"><span style="color:#8a837a;letter-spacing:.06em;">Edition</span><span>{{ selPiece.edition }}</span></div>
+          </div>
+          <a href="https://instagram.com/dform.objects" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;gap:10px;text-align:center;margin-top:26px;background:#28201a;color:#dbdcd5;text-decoration:none;font-size:12px;letter-spacing:.18em;text-transform:uppercase;padding:16px;border:1.5px solid #28201a;" style-hover="background:#f06924;border-color:#f06924;color:#fff;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4.2"></circle><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"></circle></svg>Message on Instagram</a>
+          <p style="font-size:10px;letter-spacing:.06em;color:#8a837a;text-align:center;margin:14px 0 0;line-height:1.6;">One of one · ships worldwide from the studio</p>
+        </div>
+      </aside>
+    </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { positions: null, ready: false, selected: null };
+
+  PRODUCTS = [
+    { id:'autumn-cat', src:'assets/products/cropped/autumn-cat.png', no:'01', title:'Autumn Window', titleFa:'پنجره‌ی پاییز', price:'€180', materials:'Painted & glazed clay, silver-leaf frame', dims:'9 × 12 cm', year:'2024', edition:'1 of 1', medium:'Glazed clay', status:'Available', statusColor:'#1f6b3b', blurb:'A cat dozing by a window as the maples turn — gold, rust and a slip of blue sky.', w:172, rot:-3, lx:0.50, ty:0.12, alt:'Hand-painted clay tile of a cat by an autumn window' },
+    { id:'cat-tulips', src:'assets/products/cropped/cat-tulips.png', no:'02', title:'Cat & Tulips', titleFa:'گربه و لاله‌ها', price:'€165', materials:'Painted & glazed clay', dims:'10 × 13 cm', year:'2024', edition:'1 of 1', medium:'Glazed clay', status:'Available', statusColor:'#1f6b3b', blurb:'A white cat keeping company with a jar of red tulips against a deep red ground.', w:190, rot:2.5, lx:0.73, ty:0.30, alt:'Hand-painted clay tile of a white cat beside red tulips' },
+    { id:'dachshund', src:'assets/products/cropped/dachshund.png', no:'03', title:'Sausage Dog', titleFa:'سگ سوسیسی', price:'€150', materials:'Painted & embossed clay', dims:'12 × 14 cm', year:'2023', edition:'1 of 1', medium:'Embossed clay', status:'Reserved', statusColor:'#b07a16', blurb:'A long dog in a striped, heart-dotted sweater above a richly embossed ground.', w:204, rot:-1.8, lx:0.39, ty:0.60, alt:'Hand-painted clay tile of a dachshund in a striped sweater' },
+    { id:'giraffe', src:'assets/products/cropped/giraffe.png', no:'04', title:'Giraffe', titleFa:'زرافه', price:'€190', materials:'Painted & glazed clay', dims:'7 × 17 cm', year:'2024', edition:'1 of 1', medium:'Glazed clay', status:'Available', statusColor:'#1f6b3b', blurb:'A tall, gentle giraffe reaching for cherries among the leaves.', w:98, rot:3, lx:0.89, ty:0.13, alt:'Hand-painted tall clay tile of a giraffe among leaves' },
+    { id:'seagull', src:'assets/products/cropped/seagull.png', no:'05', title:'Gull on the Rocks', titleFa:'مرغ دریایی', price:'€175', materials:'Painted clay, oval relief', dims:'11 × 15 cm', year:'2023', edition:'1 of 1', medium:'Relief clay', status:'Sold', statusColor:'#8a837a', blurb:'A gull resting on a rock between a green sky and a blue sea.', w:188, rot:-1.5, lx:0.60, ty:0.52, alt:'Hand-painted oval clay tile of a gull on a rock' }
   ];
-  const grid = document.getElementById('grid');
-  OBJECTS.forEach(([f,t,s],i)=>{
-    const a=document.createElement('div');
-    a.className='card reveal'; a.dataset.d=String((i%4)+1);
-    a.innerHTML=`<span class="num">№ ${String(i+1).padStart(2,'0')}</span>
-      <img src="assets/objects/${f}.png" alt="${t}" loading="lazy">
-      <div class="label"><div class="t">${t}</div><div class="s">${s} · one of one</div></div>`;
-    grid.appendChild(a);
-  });
-  // portrait strip
-  const strip=document.getElementById('strip');
-  for(let i=1;i<=9;i++){
-    const n=String(i).padStart(2,'0');
-    const fig=document.createElement('figure');
-    fig.innerHTML=`<img src="assets/objects/portrait-${n}.png" alt="Miniature portrait ${i}" loading="lazy"><figcaption>Portrait № ${n}</figcaption>`;
-    strip.appendChild(fig);
+
+  wallRef = React.createRef();
+  maxZ = 5;
+  _drag = null;
+
+  componentDidMount() {
+    window.addEventListener('pointermove', this.onMove);
+    window.addEventListener('pointerup', this.onUp);
+    window.addEventListener('resize', this.onResize);
+    this.seed();
   }
-  // reveal on scroll
-  const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.12});
-  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-  // kick hero reveals immediately
-  window.addEventListener('load',()=>document.querySelectorAll('.hero .reveal').forEach(el=>el.classList.add('in')));
+  componentWillUnmount() {
+    window.removeEventListener('pointermove', this.onMove);
+    window.removeEventListener('pointerup', this.onUp);
+    window.removeEventListener('resize', this.onResize);
+  }
+
+  getWall() { return this.wallRef.current ? this.wallRef.current.getBoundingClientRect() : null; }
+  clampX(x, w, W) { return Math.max(10, Math.min(x, Math.max(10, W - w - 10))); }
+  clampY(y, H) { return Math.max(78, Math.min(y, Math.max(78, H - 150))); }
+
+  computeDefaults() {
+    const r = this.getWall();
+    if (!r) return {};
+    const W = r.width, H = r.height, narrow = W < 800, pos = {};
+    this.PRODUCTS.forEach((p, i) => {
+      let x, y;
+      if (narrow) {
+        const col = i % 2;
+        x = W * 0.04 + col * (W * 0.5);
+        y = H * 0.42 + Math.floor(i / 2) * 210;
+      } else {
+        x = p.lx * W - p.w / 2;
+        y = p.ty * H;
+      }
+      pos[p.id] = { x: this.clampX(x, p.w, W), y: this.clampY(y, H), z: i + 1 };
+    });
+    return pos;
+  }
+
+  seed() {
+    let pos = null;
+    try {
+      const raw = localStorage.getItem('dform-wall-v1');
+      if (raw) { const o = JSON.parse(raw); if (o && this.PRODUCTS.every(p => o[p.id])) pos = o; }
+    } catch (e) {}
+    if (!pos) pos = this.computeDefaults();
+    let mz = 1; Object.values(pos).forEach(v => { if (v.z > mz) mz = v.z; });
+    this.maxZ = mz;
+    this.setState({ positions: pos, ready: true });
+  }
+
+  persist() { try { localStorage.setItem('dform-wall-v1', JSON.stringify(this.state.positions)); } catch (e) {} }
+
+  startDrag = (e) => {
+    const el = e.currentTarget, id = el.dataset.id, r = this.getWall();
+    if (!r || !this.state.positions) return;
+    const pos = this.state.positions[id];
+    if (!pos) return;
+    this.maxZ += 1;
+    this._drag = { id, offX: e.clientX - (r.left + pos.x), offY: e.clientY - (r.top + pos.y), sx: e.clientX, sy: e.clientY, moved: false };
+    this.setState(s => ({ positions: { ...s.positions, [id]: { ...s.positions[id], z: this.maxZ } } }));
+    document.body.style.userSelect = 'none';
+    e.preventDefault();
+  };
+
+  onMove = (e) => {
+    const d = this._drag;
+    if (!d) return;
+    const r = this.getWall();
+    if (!r) return;
+    const p = this.PRODUCTS.find(x => x.id === d.id);
+    let x = e.clientX - r.left - d.offX, y = e.clientY - r.top - d.offY;
+    x = this.clampX(x, p.w, r.width);
+    y = this.clampY(y, r.height);
+    if (!d.moved && Math.hypot(e.clientX - d.sx, e.clientY - d.sy) > 5) d.moved = true;
+    this.setState(s => ({ positions: { ...s.positions, [d.id]: { ...s.positions[d.id], x, y } } }));
+  };
+
+  onUp = () => {
+    const d = this._drag;
+    if (!d) return;
+    this._drag = null;
+    document.body.style.userSelect = '';
+    if (!d.moved) this.setState({ selected: d.id });
+    else this.persist();
+  };
+
+  onResize = () => {
+    const r = this.getWall();
+    if (!r || !this.state.positions) return;
+    const pos = { ...this.state.positions };
+    let changed = false;
+    this.PRODUCTS.forEach(p => {
+      const v = pos[p.id];
+      if (!v) return;
+      const nx = this.clampX(v.x, p.w, r.width), ny = this.clampY(v.y, r.height);
+      if (nx !== v.x || ny !== v.y) { pos[p.id] = { ...v, x: nx, y: ny }; changed = true; }
+    });
+    if (changed) this.setState({ positions: pos });
+  };
+
+  resetWall = () => {
+    try { localStorage.removeItem('dform-wall-v1'); } catch (e) {}
+    const pos = this.computeDefaults();
+    let mz = 1; Object.values(pos).forEach(v => { if (v.z > mz) mz = v.z; });
+    this.maxZ = mz;
+    this.setState({ positions: pos });
+    this.persist2(pos);
+  };
+  persist2(pos) { try { localStorage.setItem('dform-wall-v1', JSON.stringify(pos)); } catch (e) {} }
+
+  openFromIndex = (e) => { this.setState({ selected: e.currentTarget.dataset.id }); };
+  closeDetail = () => { this.setState({ selected: null }); };
+
+  statusStyle(p) {
+    return { fontSize:'10px', letterSpacing:'.2em', textTransform:'uppercase', color:p.statusColor, fontWeight:700, textAlign:'right' };
+  }
+
+  renderVals() {
+    const positions = this.state.positions || {};
+    const ready = this.state.ready;
+    const RATIO = { 'autumn-cat': 802/547, 'cat-tulips': 716/548, 'dachshund': 699/574, 'giraffe': 828/305, 'seagull': 815/574 };
+    const pieces = this.PRODUCTS.map((p, i) => {
+      const pp = positions[p.id] || { x: 30 + i * 24, y: 130 + i * 12, z: i + 1 };
+      return {
+        ...p,
+        wrapStyle: {
+          position: 'absolute', left: pp.x + 'px', top: pp.y + 'px', width: p.w + 'px', zIndex: pp.z,
+          transform: 'rotate(' + p.rot + 'deg)', cursor: 'grab', touchAction: 'none', userSelect: 'none',
+          visibility: ready ? 'visible' : 'hidden'
+        },
+        imgStyle: {
+          height: Math.round(p.w * RATIO[p.id]) + 'px',
+          backgroundImage: 'url("' + p.src + '")',
+          backgroundSize: 'contain', backgroundPosition: 'center', backgroundRepeat: 'no-repeat',
+          filter: 'drop-shadow(0 14px 14px rgba(40,32,26,.36))'
+        }
+      };
+    });
+    const indexRows = this.PRODUCTS.map(p => ({ ...p, statusStyle: { ...this.statusStyle(p) } }));
+    const sel = this.state.selected ? this.PRODUCTS.find(p => p.id === this.state.selected) : null;
+    const selPiece = sel ? {
+      ...sel,
+      detailStyle: { width:'70%', maxWidth:'300px', aspectRatio: RATIO[sel.id], backgroundImage:'url("'+sel.src+'")', backgroundSize:'contain', backgroundPosition:'center', backgroundRepeat:'no-repeat', filter:'drop-shadow(0 16px 20px rgba(40,32,26,.4))' },
+      statusStyle: { fontSize:'10px', letterSpacing:'.2em', textTransform:'uppercase', color:sel.statusColor, fontWeight:700, textAlign:'left' },
+      mailto: 'mailto:studio@dform.shop?subject=' + encodeURIComponent('Enquiry — ' + sel.title + ' (' + sel.no + ')')
+    } : { detailStyle:{}, statusStyle:{}, no:'', title:'', titleFa:'', blurb:'', materials:'', dims:'', year:'', edition:'', price:'', status:'', src:'', alt:'', mailto:'#' };
+
+    return {
+      pieces, indexRows, selPiece, showDetail: !!sel,
+      wallRef: this.wallRef,
+      startDrag: this.startDrag, resetWall: this.resetWall,
+      openFromIndex: this.openFromIndex, closeDetail: this.closeDetail
+    };
+  }
+}
 </script>
 </body>
 </html>

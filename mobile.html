@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Ravi';src:url('assets/fonts/Ravi-Regular.otf') format('opentype');font-weight:400;font-display:swap;}
+@font-face{font-family:'Ravi';src:url('assets/fonts/Ravi-SemiBold.otf') format('opentype');font-weight:600;font-display:swap;}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;background:#dbdcd5;}
+body{-webkit-font-smoothing:antialiased;}
+::selection{background:#f06924;color:#fff;}
+@keyframes dfUp{from{transform:translateY(100%);}to{transform:translateY(0);}}
+@keyframes dfDim{from{opacity:0;}to{opacity:1;}}
+</style>
+</helmet>
+<div style="{{ rootStyle }}">
+
+  <header style="position:sticky;top:0;z-index:900;display:flex;align-items:center;justify-content:space-between;padding:12px 18px;background:rgba(219,220,213,.85);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid #c7c8c1;">
+    <div role="img" aria-label="DForm" style="{{ logoStyle }}"></div>
+    <button onClick="{{ toggleLang }}" style="{{ toggleStyle }}" style-active="background:#28201a;color:#dbdcd5;">{{ t.toggle }}</button>
+  </header>
+
+  <section style="padding:34px 22px 14px;background:radial-gradient(140% 70% at 50% 0%, rgba(255,255,255,.55), rgba(255,255,255,0) 60%),#dbdcd5;">
+    <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:#5c544c;justify-content:flex-start;">
+      <span style="width:6px;height:6px;background:#f06924;display:inline-block;"></span>{{ t.eyebrow }}
+    </div>
+    <h1 style="{{ h1Style }}">{{ t.h1 }}</h1>
+    <p style="{{ subStyle }}">{{ t.sub }}</p>
+    <div style="margin-top:18px;display:flex;align-items:center;gap:8px;font-size:11px;color:#8a837a;">
+      <span style="font-size:13px;">⠿</span>{{ t.tapHint }}
+    </div>
+  </section>
+
+  <section style="padding:18px 0 40px;display:flex;flex-direction:column;gap:46px;background:#dbdcd5;">
+    <sc-for list="{{ items }}" as="it" hint-placeholder-count="5">
+      <div onClick="{{ openPiece }}" data-id="{{ it.id }}" style="display:flex;flex-direction:column;align-items:center;cursor:pointer;">
+        <div role="img" aria-label="{{ it.alt }}" style="{{ it.imgStyle }}"></div>
+        <div style="{{ it.labelStyle }}">
+          <span style="color:#f06924;font-weight:700;font-family:'Space Mono',monospace;">{{ it.no }}</span>
+          <span style="color:#28201a;">{{ it.title }}</span>
+        </div>
+      </div>
+    </sc-for>
+  </section>
+
+  <section style="background:#28201a;color:#dbdcd5;padding:0;">
+    <div style="min-height:300px;background:#2f2820;background-image:url('assets/studio-2.jpg');background-size:cover;background-position:center;"></div>
+    <div style="padding:40px 22px;">
+      <div style="font-size:12px;color:#f9bd41;">{{ t.studioLabel }}</div>
+      <h2 style="{{ studioHStyle }}">{{ t.studioH }}</h2>
+      <p style="{{ studioPStyle }}">{{ t.studioP1 }}</p>
+      <p style="{{ studioPStyle }}">{{ t.studioP2 }}</p>
+      <div style="display:flex;gap:36px;margin-top:30px;">
+        <div><div style="font-size:26px;font-weight:700;font-family:'Space Mono',monospace;">{{ t.stat1 }}</div><div style="font-size:11px;color:#9b948b;margin-top:5px;">{{ t.stat1lab }}</div></div>
+        <div><div style="font-size:26px;font-weight:700;font-family:'Space Mono',monospace;">{{ t.stat2 }}</div><div style="font-size:11px;color:#9b948b;margin-top:5px;">{{ t.stat2lab }}</div></div>
+      </div>
+    </div>
+  </section>
+
+  <footer style="background:#dbdcd5;color:#28201a;padding:44px 22px 30px;border-top:1.5px solid #28201a;">
+    <div role="img" aria-label="DForm" style="{{ logoStyleLg }}"></div>
+    <p style="font-size:13px;line-height:1.8;color:#5c544c;margin:16px 0 0;max-width:280px;">{{ t.footerTag }}</p>
+    <div style="margin-top:26px;font-size:12px;color:#8a837a;">{{ t.contact }}</div>
+    <div style="display:flex;flex-direction:column;gap:11px;margin-top:10px;font-size:14px;">
+      <a href="mailto:studio@dform.shop" style="display:flex;align-items:center;gap:9px;color:#28201a;text-decoration:none;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14"></rect><path d="M3 6l9 7 9-7"></path></svg><span dir="ltr">studio@dform.shop</span></a>
+      <a href="https://instagram.com/dform.objects" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:9px;color:#28201a;text-decoration:none;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4.2"></circle><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"></circle></svg><span dir="ltr">@dform.objects</span></a>
+    </div>
+    <div style="margin-top:30px;padding-top:16px;border-top:1px solid #c7c8c1;font-size:10px;color:#8a837a;">{{ t.copyright }}</div>
+  </footer>
+
+  <sc-if value="{{ showDetail }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;inset:0;z-index:3000;">
+      <div onClick="{{ closeDetail }}" style="position:absolute;inset:0;background:rgba(40,32,26,.5);animation:dfDim .25s ease;"></div>
+      <div style="{{ sheetStyle }}">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1.5px solid #28201a;">
+          <span style="font-size:12px;color:#8a837a;">{{ sel.metaLabel }}</span>
+          <button onClick="{{ closeDetail }}" style="font-family:inherit;font-size:18px;line-height:1;background:transparent;border:1.5px solid #28201a;width:34px;height:34px;cursor:pointer;color:#28201a;border-radius:0;">×</button>
+        </div>
+        <div style="overflow:auto;">
+          <div style="background:#e3e4dd;padding:28px;display:flex;justify-content:center;align-items:center;">
+            <div role="img" aria-label="{{ sel.alt }}" style="{{ sel.imgStyle }}"></div>
+          </div>
+          <div style="padding:22px 20px 30px;">
+            <div style="{{ sel.statusStyle }}">{{ sel.status }}</div>
+            <h3 style="{{ sel.titleStyle }}">{{ sel.title }}</h3>
+            <p style="{{ sel.blurbStyle }}">{{ sel.blurb }}</p>
+            <div style="margin-top:20px;border-top:1px solid #c7c8c1;">
+              <div style="display:flex;justify-content:space-between;gap:14px;padding:11px 0;border-bottom:1px solid #c7c8c1;font-size:13px;"><span style="color:#8a837a;">{{ t.specMaterials }}</span><span style="text-align:end;max-width:62%;">{{ sel.materials }}</span></div>
+              <div style="display:flex;justify-content:space-between;gap:14px;padding:11px 0;border-bottom:1px solid #c7c8c1;font-size:13px;"><span style="color:#8a837a;">{{ t.specDims }}</span><span>{{ sel.dims }}</span></div>
+              <div style="display:flex;justify-content:space-between;gap:14px;padding:11px 0;border-bottom:1px solid #c7c8c1;font-size:13px;"><span style="color:#8a837a;">{{ t.specYear }}</span><span>{{ sel.year }}</span></div>
+              <div style="display:flex;justify-content:space-between;gap:14px;padding:11px 0;border-bottom:1px solid #c7c8c1;font-size:13px;"><span style="color:#8a837a;">{{ t.specEdition }}</span><span>{{ sel.edition }}</span></div>
+            </div>
+            <a href="https://instagram.com/dform.objects" target="_blank" rel="noopener" style="{{ sel.ctaStyle }}" style-active="background:#f06924;border-color:#f06924;color:#fff;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4.2"></circle><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"></circle></svg>{{ t.enquire }}</a>
+            <p style="font-size:10px;color:#8a837a;text-align:center;margin:12px 0 0;line-height:1.6;">{{ t.shipNote }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { lang: 'en', selected: null };
+
+  RATIO = { 'autumn-cat': '547/802', 'cat-tulips': '548/716', 'dachshund': '574/699', 'giraffe': '305/828', 'seagull': '574/815' };
+  VW = { 'autumn-cat': 64, 'cat-tulips': 66, 'dachshund': 72, 'giraffe': 40, 'seagull': 64 };
+  ROT = { 'autumn-cat': -2.5, 'cat-tulips': 2, 'dachshund': -1.5, 'giraffe': 2.5, 'seagull': -1.5 };
+
+  PRODUCTS = [
+    { id:'autumn-cat', src:'assets/products/cropped/autumn-cat.png', statusColor:'#1f6b3b',
+      en:{ no:'01', title:'Autumn Window', price:'€180', status:'Available', materials:'Painted & glazed clay, silver-leaf frame', dims:'9 × 12 cm', year:'2024', edition:'1 of 1', blurb:'A cat dozing by a window as the maples turn — gold, rust and a slip of blue sky.', alt:'Hand-painted tile of a cat by an autumn window' },
+      fa:{ no:'۰۱', title:'پنجره‌ی پاییز', price:'۱۸۰ یورو', status:'موجود', materials:'سفال نقاشی و لعاب‌خورده، قاب نقره‌کوب', dims:'۹ × ۱۲ سانتی‌متر', year:'۲۰۲۴', edition:'تک‌نسخه', blurb:'گربه‌ای کنار پنجره چرت می‌زند و آن‌سو افراها رنگ پاییز گرفته‌اند؛ طلایی، زنگاری و باریکه‌ای از آسمان آبی.', alt:'کاشی سفالی؛ گربه‌ای کنار پنجره‌ی پاییزی' } },
+    { id:'cat-tulips', src:'assets/products/cropped/cat-tulips.png', statusColor:'#1f6b3b',
+      en:{ no:'02', title:'Cat & Tulips', price:'€165', status:'Available', materials:'Painted & glazed clay', dims:'10 × 13 cm', year:'2024', edition:'1 of 1', blurb:'A white cat keeping company with a jar of red tulips against a deep red ground.', alt:'Hand-painted tile of a white cat beside red tulips' },
+      fa:{ no:'۰۲', title:'گربه و لاله‌ها', price:'۱۶۵ یورو', status:'موجود', materials:'سفال نقاشی و لعاب‌خورده', dims:'۱۰ × ۱۳ سانتی‌متر', year:'۲۰۲۴', edition:'تک‌نسخه', blurb:'گربه‌ای سفید در کنار گلدانی از لاله‌های سرخ، روی زمینه‌ای گرم و سرخ.', alt:'کاشی سفالی؛ گربه‌ی سفید کنار لاله‌های سرخ' } },
+    { id:'dachshund', src:'assets/products/cropped/dachshund.png', statusColor:'#b07a16',
+      en:{ no:'03', title:'Sausage Dog', price:'€150', status:'Reserved', materials:'Painted & embossed clay', dims:'12 × 14 cm', year:'2023', edition:'1 of 1', blurb:'A long dog in a striped, heart-dotted sweater above a richly embossed ground.', alt:'Hand-painted tile of a dachshund in a striped sweater' },
+      fa:{ no:'۰۳', title:'سگ سوسیسی', price:'۱۵۰ یورو', status:'رزرو شده', materials:'سفال نقاشی و نقش‌برجسته', dims:'۱۲ × ۱۴ سانتی‌متر', year:'۲۰۲۳', edition:'تک‌نسخه', blurb:'سگی دراز با ژاکت راه‌راه و قلب‌نشان، روی زمینه‌ای نقش‌برجسته.', alt:'کاشی سفالی؛ سگ دراز با ژاکت راه‌راه' } },
+    { id:'giraffe', src:'assets/products/cropped/giraffe.png', statusColor:'#1f6b3b',
+      en:{ no:'04', title:'Giraffe', price:'€190', status:'Available', materials:'Painted & glazed clay', dims:'7 × 17 cm', year:'2024', edition:'1 of 1', blurb:'A tall, gentle giraffe reaching for cherries among the leaves.', alt:'Tall hand-painted tile of a giraffe among leaves' },
+      fa:{ no:'۰۴', title:'زرافه', price:'۱۹۰ یورو', status:'موجود', materials:'سفال نقاشی و لعاب‌خورده', dims:'۷ × ۱۷ سانتی‌متر', year:'۲۰۲۴', edition:'تک‌نسخه', blurb:'زرافه‌ای بلند و آرام که میان برگ‌ها به سراغ گیلاس‌ها می‌رود.', alt:'کاشی بلند؛ زرافه‌ای میان برگ‌ها' } },
+    { id:'seagull', src:'assets/products/cropped/seagull.png', statusColor:'#8a837a',
+      en:{ no:'05', title:'Gull on the Rocks', price:'€175', status:'Sold', materials:'Painted clay, oval relief', dims:'11 × 15 cm', year:'2023', edition:'1 of 1', blurb:'A gull resting on a rock between a green sky and a blue sea.', alt:'Oval hand-painted tile of a gull on a rock' },
+      fa:{ no:'۰۵', title:'مرغ دریایی', price:'۱۷۵ یورو', status:'فروخته شده', materials:'سفال نقاشی، نقش‌برجستهٔ بیضی', dims:'۱۱ × ۱۵ سانتی‌متر', year:'۲۰۲۳', edition:'تک‌نسخه', blurb:'مرغی دریایی که میان آسمان سبز و دریای آبی روی صخره آرام گرفته است.', alt:'کاشی بیضی؛ مرغ دریایی روی صخره' } }
+  ];
+
+  STR = {
+    en: { toggle:'فارسی', eyebrow:'Handmade · One of one', h1:'A wall of small worlds.', sub:'Tiny clay tiles, painted and glazed by hand — each one entirely its own.', tapHint:'Tap a piece to view',
+      studioLabel:'The Studio', studioH:'Made by hand, one at a time.', studioP1:'Every DForm object begins as a small slab of clay — pressed, textured and edged by hand, then painted in miniature and glazed. No two pieces are ever alike.', studioP2:'A quiet menagerie of cats, dogs, birds and gardens — made to be lived with.', stat1:'1/1', stat1lab:'every piece unique', stat2:'100%', stat2lab:'hand-painted',
+      contact:'Contact', footerTag:'Collectable handmade objects for the home.', copyright:'© 2026 DForm — all pieces one of a kind',
+      specMaterials:'Materials', specDims:'Dimensions', specYear:'Year', specEdition:'Edition', price:'Price', enquire:'Message on Instagram', shipNote:'One of one · ships worldwide', meta:'DForm · No. ' },
+    fa: { toggle:'EN', eyebrow:'دست‌ساز · تک‌نسخه', h1:'دیواری از دنیاهای کوچک', sub:'کاشی‌های سفالی کوچک، نقاشی و لعاب‌خورده با دست؛ هرکدام یکتا.', tapHint:'برای دیدن، روی هر قطعه بزنید',
+      studioLabel:'استودیو', studioH:'ساخته‌شده با دست، یکی‌یکی', studioP1:'هر شیء دی‌فرم از ورقه‌ای کوچک از گِل آغاز می‌شود؛ با دست فشرده، بافت‌دار و لبه‌زده می‌شود و سپس در ابعادی کوچک نقاشی و لعاب می‌خورد. هیچ دو قطعه‌ای شبیه هم نیستند.', studioP2:'مجموعه‌ای آرام از گربه‌ها، سگ‌ها، پرنده‌ها و باغ‌ها؛ برای زندگی‌کردن در کنارشان.', stat1:'۱/۱', stat1lab:'هر قطعه یکتا', stat2:'۱۰۰٪', stat2lab:'نقاشی دستی',
+      contact:'تماس', footerTag:'اشیای دست‌سازِ کلکسیونی برای خانه.', copyright:'© ۲۰۲۶ دی‌فرم — همهٔ قطعه‌ها تک‌نسخه',
+      specMaterials:'جنس', specDims:'اندازه', specYear:'سال', specEdition:'نسخه', price:'قیمت', enquire:'پیام در اینستاگرام', shipNote:'تک‌نسخه · ارسال به سراسر جهان', meta:'دی‌فرم · شمارهٔ ' }
+  };
+
+  componentDidMount() {
+    try { const p = new URLSearchParams(location.search).get('lang'); if (p === 'fa') this.setState({ lang: 'fa' }); } catch (e) {}
+  }
+
+  toggleLang = () => { this.setState(s => ({ lang: s.lang === 'en' ? 'fa' : 'en' })); };
+  openPiece = (e) => { this.setState({ selected: e.currentTarget.dataset.id }); };
+  closeDetail = () => { this.setState({ selected: null }); };
+
+  renderVals() {
+    const lang = this.state.lang;
+    const fa = lang === 'fa';
+    const t = this.STR[lang];
+    const fam = fa ? "'Ravi',Tahoma,sans-serif" : "'Space Mono',monospace";
+    const dir = fa ? 'rtl' : 'ltr';
+    const rootStyle = { fontFamily: fam, direction: dir, color:'#28201a', background:'#dbdcd5', minHeight:'100vh' };
+    const h1Style = { fontFamily: fam, fontWeight: fa?600:700, fontSize: fa?'34px':'30px', lineHeight: fa?'1.3':'1.05', letterSpacing: fa?'0':'-.02em', margin:'14px 0 0' };
+    const subStyle = { fontSize: fa?'16px':'14px', lineHeight:'1.85', color:'#5c544c', margin:'14px 0 0', maxWidth:'440px' };
+    const studioHStyle = { fontFamily: fam, fontWeight: fa?600:700, fontSize:'26px', lineHeight: fa?'1.35':'1.1', letterSpacing: fa?'0':'-.02em', margin:'14px 0 0' };
+    const studioPStyle = { fontSize: fa?'15px':'13.5px', lineHeight:'1.9', color:'#9b948b', margin:'14px 0 0', maxWidth:'460px' };
+    const toggleStyle = fa
+      ? { fontFamily:"'Space Mono',monospace", fontSize:'11px', letterSpacing:'.16em', color:'#28201a', background:'transparent', border:'1.5px solid #28201a', padding:'6px 12px', cursor:'pointer', borderRadius:'0' }
+      : { fontFamily:"'Ravi',Tahoma,sans-serif", fontSize:'14px', color:'#28201a', background:'transparent', border:'1.5px solid #28201a', padding:'5px 13px', cursor:'pointer', borderRadius:'0' };
+
+    const items = this.PRODUCTS.map(p => {
+      const L = p[lang];
+      return {
+        id: p.id, alt: L.alt, no: L.no, title: L.title, price: L.price,
+        imgStyle: {
+          width: 'min(' + this.VW[p.id] + 'vw, ' + Math.round(this.VW[p.id] * 4.4) + 'px)', aspectRatio: this.RATIO[p.id],
+          backgroundImage: 'url("' + p.src + '")', backgroundSize:'contain', backgroundPosition:'center', backgroundRepeat:'no-repeat',
+          filter:'drop-shadow(0 14px 16px rgba(40,32,26,.34))', transform:'rotate(' + this.ROT[p.id] + 'deg)'
+        },
+        labelStyle: { marginTop:'14px', display:'flex', alignItems:'baseline', gap:'8px', fontSize: fa?'13px':'11px', direction: dir }
+      };
+    });
+
+    const logoSrc = fa ? 'assets/logotype_farsi.svg' : 'assets/logotype_english.svg';
+    const logoBg = (h) => ({ backgroundImage:'url("'+logoSrc+'")', backgroundSize:'contain', backgroundPosition: fa?'right center':'left center', backgroundRepeat:'no-repeat', height:h+'px', width:Math.round(h*1.3)+'px' });
+    const logoStyle = logoBg(28);
+    const logoStyleLg = logoBg(38);
+
+    const s = this.state.selected ? this.PRODUCTS.find(p => p.id === this.state.selected) : null;
+    const L = s ? s[lang] : null;
+    const sel = s ? {
+      src: s.src, alt: L.alt, no: L.no, title: L.title, price: L.price, status: L.status, materials: L.materials, dims: L.dims, year: L.year, edition: L.edition, blurb: L.blurb,
+      imgStyle: { width:'min(70%,200px)', aspectRatio: this.RATIO[s.id], backgroundImage:'url("'+s.src+'")', backgroundSize:'contain', backgroundPosition:'center', backgroundRepeat:'no-repeat', filter:'drop-shadow(0 14px 18px rgba(40,32,26,.4))' },
+      metaLabel: t.meta + L.no,
+      mailto: 'mailto:studio@dform.shop?subject=' + encodeURIComponent((fa?'سفارش — ':'Enquiry — ') + L.title + ' (' + L.no + ')'),
+      statusStyle: { fontSize: fa?'13px':'10px', letterSpacing: fa?'0':'.2em', textTransform: fa?'none':'uppercase', color: s.statusColor, fontWeight: fa?600:700, textAlign:'start' },
+      titleStyle: { fontFamily: fam, fontSize: fa?'24px':'22px', fontWeight: fa?600:700, lineHeight: fa?'1.3':'1.1', margin:'10px 0 0', letterSpacing: fa?'0':'-.02em' },
+      blurbStyle: { fontSize: fa?'14px':'13px', lineHeight:'1.85', color:'#5c544c', margin:'12px 0 0' },
+      priceStyle: { fontSize:'24px', fontWeight: fa?600:700, fontFamily: fam, letterSpacing: fa?'0':'-.02em' },
+      ctaStyle: { display:'flex', alignItems:'center', justifyContent:'center', gap:'10px', textAlign:'center', marginTop:'24px', background:'#28201a', color:'#dbdcd5', textDecoration:'none', fontSize: fa?'15px':'12px', letterSpacing: fa?'0':'.16em', textTransform: fa?'none':'uppercase', padding:'15px', border:'1.5px solid #28201a' }
+    } : { statusStyle:{}, titleStyle:{}, blurbStyle:{}, priceStyle:{}, ctaStyle:{}, metaLabel:'', src:'', alt:'', no:'', title:'', price:'', status:'', materials:'', dims:'', year:'', edition:'', blurb:'', mailto:'#' };
+
+    const sheetStyle = { position:'absolute', left:0, right:0, bottom:0, maxHeight:'92vh', background:'#fff', borderTop:'1.5px solid #28201a', animation:'dfUp .34s cubic-bezier(.2,.85,.2,1)', display:'flex', flexDirection:'column', direction: dir };
+
+    return { rootStyle, h1Style, subStyle, studioHStyle, studioPStyle, toggleStyle, t,
+      logoStyle, logoStyleLg,
+      items, sel, showDetail: !!s, sheetStyle,
+      toggleLang: this.toggleLang, openPiece: this.openPiece, closeDetail: this.closeDetail };
+  }
+}
+</script>
+</body>
+</html>
