@@ -41,6 +41,7 @@ body{-webkit-font-smoothing:antialiased;}
     <div style="margin-top:18px;display:flex;align-items:center;gap:8px;font-size:11px;color:#8a837a;">
       <span style="font-size:13px;">⠿</span>{{ t.tapHint }}
     </div>
+    <a href="products.html" style="display:inline-flex;align-items:center;gap:10px;margin-top:20px;background:#28201a;color:#dbdcd5;text-decoration:none;font-size:12px;letter-spacing:.1em;padding:14px 20px;border:1.5px solid #28201a;">{{ t.allPieces }}<span style="font-size:15px;line-height:1;">{{ t.arrow }}</span></a>
   </section>
 
   <section style="padding:18px 0 40px;display:flex;flex-direction:column;gap:46px;background:#dbdcd5;">
@@ -142,11 +143,11 @@ class Component extends DCLogic {
     en: { toggle:'فارسی', eyebrow:'Handmade · One of one', h1:'A wall of small worlds.', sub:'Tiny clay tiles, painted and glazed by hand — each one entirely its own.', tapHint:'Tap a piece to view',
       studioLabel:'The Studio', studioH:'Made by hand, one at a time.', studioP1:'Every DForm object begins as a small slab of clay — pressed, textured and edged by hand, then painted in miniature and glazed. No two pieces are ever alike.', studioP2:'A quiet menagerie of cats, dogs, birds and gardens — made to be lived with.', stat1:'1/1', stat1lab:'every piece unique', stat2:'100%', stat2lab:'hand-painted',
       contact:'Contact', footerTag:'Collectable handmade objects for the home.', copyright:'© 2026 DForm — all pieces one of a kind',
-      specMaterials:'Materials', specDims:'Dimensions', specYear:'Year', specEdition:'Edition', price:'Price', enquire:'Message on Instagram', shipNote:'One of one · ships worldwide', meta:'DForm · No. ' },
+      specMaterials:'Materials', specDims:'Dimensions', specYear:'Year', specEdition:'Edition', price:'Price', enquire:'Message on Instagram', shipNote:'One of one · ships worldwide', meta:'DForm · No. ', allPieces:'View all 20 pieces', arrow:'→' },
     fa: { toggle:'EN', eyebrow:'دست‌ساز · تک‌نسخه', h1:'دیواری از دنیاهای کوچک', sub:'کاشی‌های سفالی کوچک، نقاشی و لعاب‌خورده با دست؛ هرکدام یکتا.', tapHint:'برای دیدن، روی هر قطعه بزنید',
       studioLabel:'استودیو', studioH:'ساخته‌شده با دست، یکی‌یکی', studioP1:'هر شیء دی‌فرم از ورقه‌ای کوچک از گِل آغاز می‌شود؛ با دست فشرده، بافت‌دار و لبه‌زده می‌شود و سپس در ابعادی کوچک نقاشی و لعاب می‌خورد. هیچ دو قطعه‌ای شبیه هم نیستند.', studioP2:'مجموعه‌ای آرام از گربه‌ها، سگ‌ها، پرنده‌ها و باغ‌ها؛ برای زندگی‌کردن در کنارشان.', stat1:'۱/۱', stat1lab:'هر قطعه یکتا', stat2:'۱۰۰٪', stat2lab:'نقاشی دستی',
       contact:'تماس', footerTag:'اشیای دست‌سازِ کلکسیونی برای خانه.', copyright:'© ۲۰۲۶ دی‌فرم — همهٔ قطعه‌ها تک‌نسخه',
-      specMaterials:'جنس', specDims:'اندازه', specYear:'سال', specEdition:'نسخه', price:'قیمت', enquire:'پیام در اینستاگرام', shipNote:'تک‌نسخه · ارسال به سراسر جهان', meta:'دی‌فرم · شمارهٔ ' }
+      specMaterials:'جنس', specDims:'اندازه', specYear:'سال', specEdition:'نسخه', price:'قیمت', enquire:'پیام در اینستاگرام', shipNote:'تک‌نسخه · ارسال به سراسر جهان', meta:'دی‌فرم · شمارهٔ ', allPieces:'دیدن همهٔ ۲۰ قطعه', arrow:'←' }
   };
 
   componentDidMount() {
