@@ -29,21 +29,24 @@ body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
 @keyframes dfDim{from{opacity:0;}to{opacity:1;}}
 </style>
 </helmet>
-<div style="font-family:'Space Mono',monospace;color:#28201a;background:#dbdcd5;min-height:100vh;">
+<div style="{{ rootStyle }}">
 
   <header style="position:sticky;top:0;z-index:1500;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 max(20px,3vw);background:rgba(219,220,213,.78);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid #c7c8c1;">
     <a href="index.html" style="display:flex;align-items:center;text-decoration:none;">
       <img src="assets/logotype_english.svg" alt="DForm" style="height:30px;display:block;"/>
     </a>
-    <a href="index.html" style="display:flex;align-items:center;gap:8px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#28201a;text-decoration:none;padding-bottom:2px;border-bottom:1.5px solid transparent;" style-hover="color:#f06924;border-bottom-color:#f06924;">← Back to the wall</a>
+    <div style="display:flex;align-items:center;gap:clamp(14px,2vw,26px);">
+      <button onClick="{{ toggleLang }}" style="{{ toggleStyle }}">{{ t.toggle }}</button>
+      <a href="index.html" style="display:flex;align-items:center;gap:8px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#28201a;text-decoration:none;padding-bottom:2px;border-bottom:1.5px solid transparent;" style-hover="color:#f06924;border-bottom-color:#f06924;">{{ t.back }}</a>
+    </div>
   </header>
 
   <section style="padding:64px max(20px,5vw) 28px;">
     <div style="display:flex;align-items:center;gap:9px;font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:#5c544c;">
-      <span style="width:7px;height:7px;background:#f06924;display:inline-block;"></span>The Catalogue · {{ count }} pieces
+      <span style="width:7px;height:7px;background:#f06924;display:inline-block;"></span>{{ eyebrow }}
     </div>
-    <h1 style="font-size:clamp(32px,5vw,60px);font-weight:700;line-height:1.02;letter-spacing:-.03em;margin:16px 0 0;max-width:760px;">Every small world, all in one place.</h1>
-    <p style="margin:18px 0 0;font-size:14px;line-height:1.7;color:#5c544c;max-width:480px;">Hand-painted clay and wood, each piece one of one. Tap any object to see it close up and enquire.</p>
+    <h1 style="font-size:clamp(32px,5vw,60px);font-weight:700;line-height:1.02;letter-spacing:-.03em;margin:16px 0 0;max-width:760px;">{{ t.h1 }}</h1>
+    <p style="margin:18px 0 0;font-size:14px;line-height:1.7;color:#5c544c;max-width:480px;">{{ t.intro }}</p>
   </section>
 
   <sc-for list="{{ collections }}" as="col" hint-placeholder-count="4">
@@ -73,14 +76,14 @@ body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
   <footer style="background:#28201a;color:#dbdcd5;margin-top:60px;padding:64px max(20px,5vw) 40px;">
     <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:28px;">
       <div>
-        <h3 style="font-size:clamp(22px,3vw,34px);font-weight:700;letter-spacing:-.02em;line-height:1.1;margin:0;max-width:480px;">See one you love?<br>Message the studio.</h3>
-        <p style="font-size:13px;line-height:1.7;color:#9b948b;margin:18px 0 0;max-width:380px;">Each piece is unique — when it's gone, it's gone. Send a note and we'll tell you what's still available.</p>
+        <h3 style="font-size:clamp(22px,3vw,34px);font-weight:700;letter-spacing:-.02em;line-height:1.1;margin:0;max-width:480px;">{{ t.ctaH }}</h3>
+        <p style="font-size:13px;line-height:1.7;color:#9b948b;margin:18px 0 0;max-width:380px;">{{ t.ctaP }}</p>
       </div>
-      <a href="https://instagram.com/dform.objects" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;background:#dbdcd5;color:#28201a;text-decoration:none;font-size:12px;letter-spacing:.18em;text-transform:uppercase;padding:16px 22px;border:1.5px solid #dbdcd5;" style-hover="background:#f06924;border-color:#f06924;color:#fff;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4.2"></circle><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"></circle></svg>Message on Instagram</a>
+      <a href="https://instagram.com/dform.objects" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;background:#dbdcd5;color:#28201a;text-decoration:none;font-size:12px;letter-spacing:.18em;text-transform:uppercase;padding:16px 22px;border:1.5px solid #dbdcd5;" style-hover="background:#f06924;border-color:#f06924;color:#fff;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4.2"></circle><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"></circle></svg>{{ t.enquire }}</a>
     </div>
     <div style="display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-top:48px;padding-top:20px;border-top:1px solid #4a4138;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#9b948b;">
-      <span>© 2026 DForm — all pieces one of a kind</span>
-      <a href="index.html" style="color:#9b948b;text-decoration:none;" style-hover="color:#dbdcd5;">Back to the wall →</a>
+      <span>{{ t.copyright }}</span>
+      <a href="index.html" style="color:#9b948b;text-decoration:none;" style-hover="color:#dbdcd5;">{{ t.backFooter }}</a>
     </div>
   </footer>
 
@@ -96,16 +99,16 @@ body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
           <div role="img" aria-label="{{ sel.title }}" style="{{ sel.detailStyle }}"></div>
         </div>
         <div style="padding:26px 22px 30px;">
-          <div style="font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#1f6b3b;font-weight:700;">One of one · Available</div>
+          <div style="font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#1f6b3b;font-weight:700;">{{ t.status }}</div>
           <h3 style="font-size:26px;font-weight:700;letter-spacing:-.02em;line-height:1.1;margin:12px 0 0;">{{ sel.title }}</h3>
           <p style="font-size:13px;line-height:1.7;color:#5c544c;margin:16px 0 0;">{{ sel.blurb }}</p>
           <div style="margin-top:24px;border-top:1px solid #c7c8c1;">
-            <div style="display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px solid #c7c8c1;font-size:12px;"><span style="color:#8a837a;letter-spacing:.06em;">Collection</span><span style="text-align:right;">{{ sel.collection }}</span></div>
-            <div style="display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px solid #c7c8c1;font-size:12px;"><span style="color:#8a837a;letter-spacing:.06em;">Medium</span><span style="text-align:right;max-width:62%;">{{ sel.medium }}</span></div>
-            <div style="display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px solid #c7c8c1;font-size:12px;"><span style="color:#8a837a;letter-spacing:.06em;">Edition</span><span>1 of 1</span></div>
+            <div style="display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px solid #c7c8c1;font-size:12px;"><span style="color:#8a837a;letter-spacing:.06em;">{{ t.specCollection }}</span><span style="text-align:right;">{{ sel.collection }}</span></div>
+            <div style="display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px solid #c7c8c1;font-size:12px;"><span style="color:#8a837a;letter-spacing:.06em;">{{ t.specMedium }}</span><span style="text-align:right;max-width:62%;">{{ sel.medium }}</span></div>
+            <div style="display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px solid #c7c8c1;font-size:12px;"><span style="color:#8a837a;letter-spacing:.06em;">{{ t.specEdition }}</span><span>{{ t.edition1 }}</span></div>
           </div>
-          <a href="https://instagram.com/dform.objects" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;gap:10px;text-align:center;margin-top:24px;background:#28201a;color:#dbdcd5;text-decoration:none;font-size:12px;letter-spacing:.18em;text-transform:uppercase;padding:16px;border:1.5px solid #28201a;" style-hover="background:#f06924;border-color:#f06924;color:#fff;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4.2"></circle><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"></circle></svg>Message on Instagram</a>
-          <p style="font-size:10px;letter-spacing:.06em;color:#8a837a;text-align:center;margin:14px 0 0;line-height:1.6;">One of one · ships worldwide from the studio</p>
+          <a href="https://instagram.com/dform.objects" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;gap:10px;text-align:center;margin-top:24px;background:#28201a;color:#dbdcd5;text-decoration:none;font-size:12px;letter-spacing:.18em;text-transform:uppercase;padding:16px;border:1.5px solid #28201a;" style-hover="background:#f06924;border-color:#f06924;color:#fff;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4.2"></circle><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"></circle></svg>{{ t.enquire }}</a>
+          <p style="font-size:10px;letter-spacing:.06em;color:#8a837a;text-align:center;margin:14px 0 0;line-height:1.6;">{{ t.shipNote }}</p>
         </div>
       </aside>
     </div>
@@ -115,40 +118,81 @@ body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  state = { selected: null };
+  state = { selected: null, lang: 'en' };
+
+  STR = {
+    en: {
+      toggle: '\u0641\u0627\u0631\u0633\u06cc', back: '\u2190 Back to the wall', backFooter: 'Back to the wall \u2192',
+      eyebrow: 'The Catalogue \u00b7 {{count}} pieces',
+      h1: 'Every small world, all in one place.',
+      intro: 'Hand-painted clay and wood, each piece one of one. Tap any object to see it close up and enquire.',
+      specCollection: 'Collection', specMedium: 'Medium', specEdition: 'Edition', edition1: '1 of 1',
+      status: 'One of one \u00b7 Available',
+      enquire: 'Message on Instagram',
+      shipNote: 'One of one \u00b7 ships worldwide from the studio',
+      ctaH: 'See one you love?\u00a0Message the studio.',
+      ctaP: 'Each piece is unique \u2014 when it\u2019s gone, it\u2019s gone. Send a note and we\u2019ll tell you what\u2019s still available.',
+      copyright: '\u00a9 2026 DForm \u2014 all pieces one of a kind'
+    },
+    fa: {
+      toggle: 'EN', back: '\u0628\u0627\u0632\u06af\u0634\u062a \u0628\u0647 \u062f\u06cc\u0648\u0627\u0631 \u2192', backFooter: '\u2190 \u0628\u0627\u0632\u06af\u0634\u062a \u0628\u0647 \u062f\u06cc\u0648\u0627\u0631',
+      eyebrow: '\u0641\u0647\u0631\u0633\u062a \u0622\u062b\u0627\u0631 \u00b7 {{count}} \u0627\u062b\u0631',
+      h1: '\u0647\u0631 \u062f\u0646\u06cc\u0627\u06cc \u06a9\u0648\u0686\u06a9\u060c \u0647\u0645\u0647 \u062f\u0631 \u06cc\u06a9 \u062c\u0627.',
+      intro: '\u0633\u0641\u0627\u0644 \u0646\u0642\u0627\u0634\u06cc\u200c\u0634\u062f\u0647 \u0628\u0627 \u062f\u0633\u062a\u060c \u0647\u0631 \u0642\u0637\u0639\u0647 \u062a\u06a9\u200c\u0646\u0633\u062e\u0647. \u0631\u0648\u06cc \u0647\u0631 \u0627\u062b\u0631 \u0628\u0632\u0646\u06cc\u062f \u062a\u0627 \u0627\u0632 \u0646\u0632\u062f\u06cc\u06a9 \u0628\u0628\u06cc\u0646\u06cc\u062f \u0648 \u0633\u0641\u0627\u0631\u0634 \u062f\u0647\u06cc\u062f.',
+      specCollection: '\u0645\u062c\u0645\u0648\u0639\u0647', specMedium: '\u062c\u0646\u0633', specEdition: '\u0646\u0633\u062e\u0647', edition1: '\u062a\u06a9\u200c\u0646\u0633\u062e\u0647',
+      status: '\u062a\u06a9\u200c\u0646\u0633\u062e\u0647 \u00b7 \u0645\u0648\u062c\u0648\u062f',
+      enquire: '\u067e\u06cc\u0627\u0645 \u062f\u0631 \u0627\u06cc\u0646\u0633\u062a\u0627\u06af\u0631\u0627\u0645',
+      shipNote: '\u062a\u06a9\u200c\u0646\u0633\u062e\u0647 \u00b7 \u0627\u0631\u0633\u0627\u0644 \u0628\u0647 \u0633\u0631\u0627\u0633\u0631 \u062c\u0647\u0627\u0646 \u0627\u0632 \u0627\u0633\u062a\u0648\u062f\u06cc\u0648',
+      ctaH: '\u0642\u0637\u0639\u0647\u200c\u0627\u06cc \u062f\u06cc\u062f\u06cc\u062f \u06a9\u0647 \u062f\u0644\u062a\u0627\u0646 \u062e\u0648\u0627\u0633\u062a\u061f\u00a0\u0628\u0627 \u0627\u0633\u062a\u0648\u062f\u06cc\u0648 \u062a\u0645\u0627\u0633 \u0628\u06af\u06cc\u0631\u06cc\u062f.',
+      ctaP: '\u0647\u0631 \u0642\u0637\u0639\u0647 \u06cc\u06a9\u062a\u0627\u0633\u062a \u2014 \u0648\u0642\u062a\u06cc \u0631\u0641\u062a\u060c \u062f\u06cc\u06af\u0631 \u0646\u06cc\u0633\u062a. \u06cc\u06a9 \u067e\u06cc\u0627\u0645 \u0628\u0641\u0631\u0633\u062a\u06cc\u062f \u0648 \u0628\u067e\u0631\u0633\u06cc\u062f \u0686\u0647 \u0622\u062b\u0627\u0631\u06cc \u0645\u0648\u062c\u0648\u062f\u0646\u062f.',
+      copyright: '\u00a9 \u06f2\u06f0\u06f2\u06f6 \u062f\u06cc\u200c\u0641\u0631\u0645 \u2014 \u0647\u0645\u0647\u0654 \u0642\u0637\u0639\u0647\u200c\u0647\u0627 \u062a\u06a9\u200c\u0646\u0633\u062e\u0647'
+    }
+  };
 
   CATALOG = [
-    { c:'Artist Tributes', no:'I', note:'after the masters', medium:'Painted & glazed clay', items:[
-      { id:'art-tile-01', w:547, h:695, title:'The Lovers', blurb:'A tender embrace after Modigliani, set in a dark, hand-tooled oval frame.' },
-      { id:'art-tile-02', w:613, h:684, title:'Vincent', blurb:'Van Gogh\u2019s straw-hat self-portrait, painted in miniature on a basket-weave tile.' },
-      { id:'art-tile-03', w:442, h:519, title:'Frida', blurb:'Frida among bleeding-heart blooms, framed in carved woodgrain.' }
+    { c:'Artist Tributes', cFa:'\u0627\u062f\u0627\u06cc \u0627\u062d\u062a\u0631\u0627\u0645 \u0628\u0647 \u0647\u0646\u0631\u0645\u0646\u062f\u0627\u0646', no:'I', note:'after the masters', noteFa:'\u067e\u0633 \u0627\u0632 \u0627\u0633\u062a\u0627\u062f\u0627\u0646', medium:'Painted & glazed clay', mediumFa:'\u0633\u0641\u0627\u0644 \u0646\u0642\u0627\u0634\u06cc \u0648 \u0644\u0639\u0627\u0628\u200c\u062e\u0648\u0631\u062f\u0647', items:[
+      { id:'art-tile-01', w:547, h:695, title:'The Lovers', titleFa:'\u0628\u0648\u0633\u0647\u200c\u06cc \u0639\u0627\u0634\u0642\u0627\u0646', blurb:'A tender embrace after Modigliani, set in a dark, hand-tooled oval frame.', blurbFa:'\u0622\u063a\u0648\u0634\u06cc \u0645\u0647\u0631\u0628\u0627\u0646 \u067e\u0633 \u0627\u0632 \u0645\u0648\u062f\u06cc\u0644\u06cc\u0627\u0646\u06cc\u060c \u062f\u0631 \u0642\u0627\u0628 \u0628\u06cc\u0636\u06cc \u062a\u06cc\u0631\u0647\u200c\u06cc \u062f\u0633\u062a\u200c\u0633\u0627\u0632.' },
+      { id:'art-tile-02', w:613, h:684, title:'Vincent', titleFa:'\u0648\u06cc\u0646\u0633\u0646\u062a', blurb:'Van Gogh\u2019s straw-hat self-portrait, painted in miniature on a basket-weave tile.', blurbFa:'\u067e\u0631\u062a\u0631\u0647\u200c\u06cc \u062e\u0648\u062f\u0650 \u0648\u0646\u200c\u06af\u0648\u06af \u0628\u0627 \u06a9\u0644\u0627\u0647 \u06a9\u0627\u0647\u06cc\u060c \u0646\u0642\u0627\u0634\u06cc\u200c\u0634\u062f\u0647 \u062f\u0631 \u0627\u0628\u0639\u0627\u062f \u06a9\u0648\u0686\u06a9 \u0631\u0648\u06cc \u06a9\u0627\u0634\u06cc \u0628\u0627\u0641\u062a\u200c\u062f\u0627\u0631.' },
+      { id:'art-tile-03', w:442, h:519, title:'Frida', titleFa:'\u0641\u0631\u06cc\u062f\u0627', blurb:'Frida among bleeding-heart blooms, framed in carved woodgrain.', blurbFa:'\u0641\u0631\u06cc\u062f\u0627 \u0645\u06cc\u0627\u0646 \u06af\u0644\u200c\u0647\u0627\u06cc \u062e\u0648\u0646\u06cc\u0646\u200c\u062f\u0644\u060c \u062f\u0631 \u0642\u0627\u0628 \u062d\u06a9\u0627\u06a9\u06cc\u200c\u0634\u062f\u0647\u200c\u06cc \u0686\u0648\u0628\u06cc.' }
     ]},
-    { c:'Persian Portraits', no:'II', note:'Qajar miniatures', medium:'Painted & glazed clay', items:[
-      { id:'portrait-01', w:296, h:396, title:'Prince & Nightingale', blurb:'A Qajar prince with a blue songbird perched on his hand.' },
-      { id:'portrait-02', w:284, h:283, title:'Lady with Pomegranate', blurb:'A bright-eyed lady offering a pomegranate, in a deep relief frame.' },
-      { id:'portrait-03', w:257, h:320, title:'The Commander', blurb:'A plumed warrior in pearl-trimmed armour on a fringed tile.' },
-      { id:'portrait-04', w:276, h:344, title:'Crowned King', blurb:'A jewelled king in a flowered coat, framed in a soft oval.' },
-      { id:'portrait-05', w:272, h:285, title:'The Queen', blurb:'A serene crowned queen against deep turquoise.' },
-      { id:'portrait-06', w:243, h:319, title:'Qajar Lady', blurb:'A dark-eyed lady in a red robe and beaded headband.' },
-      { id:'portrait-07', w:290, h:293, title:'Veiled Lady', blurb:'A lady beneath a sky-blue veil, her eyes lowered.' },
-      { id:'portrait-08', w:286, h:284, title:'Lovers\u2019 Roundel', blurb:'Two figures leaning close, painted inside a round relief plate.' },
-      { id:'portrait-09', w:184, h:324, title:'Spring Branch', blurb:'A slender blossoming branch over a band of gold \u2014 a slim bookmark tile.' }
+    { c:'Persian Portraits', cFa:'\u067e\u0631\u062a\u0631\u0647\u200c\u0647\u0627\u06cc \u0627\u06cc\u0631\u0627\u0646\u06cc', no:'II', note:'Qajar miniatures', noteFa:'\u0645\u06cc\u0646\u06cc\u0627\u062a\u0648\u0631\u0647\u0627\u06cc \u0642\u0627\u062c\u0627\u0631\u06cc', medium:'Painted & glazed clay', mediumFa:'\u0633\u0641\u0627\u0644 \u0646\u0642\u0627\u0634\u06cc \u0648 \u0644\u0639\u0627\u0628\u200c\u062e\u0648\u0631\u062f\u0647', items:[
+      { id:'portrait-01', w:296, h:396, title:'Prince & Nightingale', titleFa:'\u0634\u0627\u0647\u0632\u0627\u062f\u0647 \u0648 \u0628\u0644\u0628\u0644', blurb:'A Qajar prince with a blue songbird perched on his hand.', blurbFa:'\u0634\u0627\u0647\u0632\u0627\u062f\u0647\u200c\u0627\u06cc \u0642\u0627\u062c\u0627\u0631\u06cc \u0628\u0627 \u0628\u0644\u0628\u0644\u06cc \u0622\u0628\u06cc \u0628\u0631 \u062f\u0633\u062a\u0634.' },
+      { id:'portrait-02', w:284, h:283, title:'Lady with Pomegranate', titleFa:'\u0628\u0627\u0646\u0648\u06cc \u0627\u0646\u0627\u0631', blurb:'A bright-eyed lady offering a pomegranate, in a deep relief frame.', blurbFa:'\u0628\u0627\u0646\u0648\u06cc \u0631\u0648\u0634\u0646\u200c\u0686\u0634\u0645\u06cc \u06a9\u0647 \u0627\u0646\u0627\u0631\u06cc \u062a\u0639\u0627\u0631\u0641 \u0645\u06cc\u200c\u06a9\u0646\u062f\u060c \u062f\u0631 \u0642\u0627\u0628 \u0646\u0642\u0634\u200c\u0628\u0631\u062c\u0633\u062a\u0647\u200c\u06cc \u0639\u0645\u06cc\u0642.' },
+      { id:'portrait-03', w:257, h:320, title:'The Commander', titleFa:'\u0641\u0631\u0645\u0627\u0646\u062f\u0647', blurb:'A plumed warrior in pearl-trimmed armour on a fringed tile.', blurbFa:'\u062c\u0646\u06af\u062c\u0648\u06cc\u06cc \u0628\u0627 \u06a9\u0644\u0627\u0647\u200c\u062e\u0648\u062f \u067e\u0631\u062f\u0627\u0631 \u062f\u0631 \u0632\u0631\u0647 \u0645\u0631\u0648\u0627\u0631\u06cc\u062f\u200c\u0646\u0634\u0627\u0646\u060c \u0631\u0648\u06cc \u06a9\u0627\u0634\u06cc \u0631\u06cc\u0634\u0647\u200c\u062f\u0627\u0631.' },
+      { id:'portrait-04', w:276, h:344, title:'Crowned King', titleFa:'\u0634\u0627\u0647 \u062a\u0627\u062c\u200c\u062f\u0627\u0631', blurb:'A jewelled king in a flowered coat, framed in a soft oval.', blurbFa:'\u0634\u0627\u0647\u06cc \u062c\u0648\u0627\u0647\u0631\u0646\u0634\u0627\u0646 \u062f\u0631 \u0642\u0628\u0627\u06cc \u06af\u0644\u200c\u062f\u0627\u0631\u060c \u062f\u0631 \u0642\u0627\u0628 \u0628\u06cc\u0636\u06cc \u0646\u0631\u0645.' },
+      { id:'portrait-05', w:272, h:285, title:'The Queen', titleFa:'\u0645\u0644\u06a9\u0647', blurb:'A serene crowned queen against deep turquoise.', blurbFa:'\u0645\u0644\u06a9\u0647\u200c\u0627\u06cc \u0622\u0631\u0627\u0645 \u0628\u0627 \u062a\u0627\u062c\u060c \u0631\u0648\u06cc \u0632\u0645\u06cc\u0646\u0647\u200c\u0627\u06cc \u0641\u06cc\u0631\u0648\u0632\u0647\u200c\u0627\u06cc \u062a\u06cc\u0631\u0647.' },
+      { id:'portrait-06', w:243, h:319, title:'Qajar Lady', titleFa:'\u0628\u0627\u0646\u0648\u06cc \u0642\u0627\u062c\u0627\u0631\u06cc', blurb:'A dark-eyed lady in a red robe and beaded headband.', blurbFa:'\u0628\u0627\u0646\u0648\u06cc\u06cc \u062a\u06cc\u0631\u0647\u200c\u0686\u0634\u0645 \u062f\u0631 \u0631\u062f\u0627\u06cc \u0633\u0631\u062e \u0648 \u0633\u0631\u0628\u0646\u062f \u0645\u0647\u0631\u0647\u200c\u062f\u0627\u0631.' },
+      { id:'portrait-07', w:290, h:293, title:'Veiled Lady', titleFa:'\u0628\u0627\u0646\u0648\u06cc \u0645\u062d\u062c\u0648\u0628', blurb:'A lady beneath a sky-blue veil, her eyes lowered.', blurbFa:'\u0628\u0627\u0646\u0648\u06cc\u06cc \u0632\u06cc\u0631 \u0631\u0648\u0633\u0631\u06cc \u0622\u0633\u0645\u0627\u0646\u06cc\u060c \u0628\u0627 \u0646\u06af\u0627\u0647\u06cc \u06a9\u0647 \u0628\u0647 \u067e\u0627\u06cc\u06cc\u0646 \u062f\u0648\u062e\u062a\u0647 \u0634\u062f\u0647.' },
+      { id:'portrait-08', w:286, h:284, title:'Lovers\u2019 Roundel', titleFa:'\u062f\u0627\u06cc\u0631\u0647\u200c\u06cc \u0639\u0627\u0634\u0642\u0627\u0646', blurb:'Two figures leaning close, painted inside a round relief plate.', blurbFa:'\u062f\u0648 \u0686\u0647\u0631\u0647 \u06a9\u0647 \u0628\u0647 \u0647\u0645 \u062a\u06a9\u06cc\u0647 \u062f\u0627\u062f\u0647\u200c\u0627\u0646\u062f\u060c \u0646\u0642\u0627\u0634\u06cc\u200c\u0634\u062f\u0647 \u062f\u0631\u0648\u0646 \u0628\u0634\u0642\u0627\u0628 \u06af\u0631\u062f \u0646\u0642\u0634\u200c\u0628\u0631\u062c\u0633\u062a\u0647.' },
+      { id:'portrait-09', w:184, h:324, title:'Spring Branch', titleFa:'\u0634\u0627\u062e\u0647\u200c\u06cc \u0628\u0647\u0627\u0631\u06cc', blurb:'A slender blossoming branch over a band of gold \u2014 a slim bookmark tile.', blurbFa:'\u0634\u0627\u062e\u0647\u200c\u0627\u06cc \u0638\u0631\u06cc\u0641 \u0634\u06a9\u0648\u0641\u0647\u200c\u0632\u062f\u0647 \u0628\u0627\u0644\u0627\u06cc \u0646\u0648\u0627\u0631\u06cc \u0637\u0644\u0627\u06cc\u06cc \u2014 \u06a9\u0627\u0634\u06cc \u0628\u0627\u0631\u06cc\u06a9 \u0646\u0634\u0627\u0646\u06af\u0631.' }
     ]},
-    { c:'Painted Spoons', no:'III', note:'face & bowl', medium:'Painted & glazed clay', items:[
-      { id:'spoon-01', w:362, h:572, title:'Poppy Spoon', blurb:'A redhead\u2019s face crowns a spoon cradling dark poppies.' },
-      { id:'spoon-02', w:347, h:506, title:'Garden Spoon', blurb:'A smiling face above a bowl of yellow garden blooms.' },
-      { id:'spoon-03', w:367, h:516, title:'Cornflower Spoon', blurb:'A cheerful face over a deep-blue bowl of red berries.' }
+    { c:'Painted Spoons', cFa:'\u0642\u0627\u0634\u0642\u200c\u0647\u0627\u06cc \u0646\u0642\u0627\u0634\u06cc\u200c\u0634\u062f\u0647', no:'III', note:'face & bowl', noteFa:'\u0686\u0647\u0631\u0647 \u0648 \u06a9\u0627\u0633\u0647', medium:'Painted & glazed clay', mediumFa:'\u0633\u0641\u0627\u0644 \u0646\u0642\u0627\u0634\u06cc \u0648 \u0644\u0639\u0627\u0628\u200c\u062e\u0648\u0631\u062f\u0647', items:[
+      { id:'spoon-01', w:362, h:572, title:'Poppy Spoon', titleFa:'\u0642\u0627\u0634\u0642 \u0634\u0642\u0627\u06cc\u0642', blurb:'A redhead\u2019s face crowns a spoon cradling dark poppies.', blurbFa:'\u0686\u0647\u0631\u0647\u200c\u06cc \u062f\u062e\u062a\u0631\u06cc \u0633\u0631\u062e\u200c\u0645\u0648 \u0628\u0631 \u062f\u0633\u062a\u0647\u200c\u06cc \u0642\u0627\u0634\u0642\u06cc \u06a9\u0647 \u0634\u0642\u0627\u06cc\u0642\u200c\u0647\u0627\u06cc \u062a\u06cc\u0631\u0647 \u0631\u0627 \u062f\u0631 \u0622\u063a\u0648\u0634 \u06af\u0631\u0641\u062a\u0647.' },
+      { id:'spoon-02', w:347, h:506, title:'Garden Spoon', titleFa:'\u0642\u0627\u0634\u0642 \u0628\u0627\u063a', blurb:'A smiling face above a bowl of yellow garden blooms.', blurbFa:'\u0686\u0647\u0631\u0647\u200c\u0627\u06cc \u062e\u0646\u062f\u0627\u0646 \u0628\u0627\u0644\u0627\u06cc \u06a9\u0627\u0633\u0647\u200c\u0627\u06cc \u0627\u0632 \u06af\u0644\u200c\u0647\u0627\u06cc \u0632\u0631\u062f \u0628\u0627\u063a\u0686\u0647.' },
+      { id:'spoon-03', w:367, h:516, title:'Cornflower Spoon', titleFa:'\u0642\u0627\u0634\u0642 \u06af\u0644\u200c\u06af\u0646\u062f\u0645', blurb:'A cheerful face over a deep-blue bowl of red berries.', blurbFa:'\u0686\u0647\u0631\u0647\u200c\u0627\u06cc \u0634\u0627\u062f \u0628\u0631 \u06a9\u0627\u0633\u0647\u200c\u0627\u06cc \u0622\u0628\u06cc\u200c\u062a\u06cc\u0631\u0647 \u067e\u0631 \u0627\u0632 \u062a\u0648\u062a\u200c\u0647\u0627\u06cc \u0633\u0631\u062e.' }
     ]},
-    { c:'The Menagerie', no:'IV', note:'creatures & corners', medium:'Painted & glazed clay', items:[
-      { id:'tile-01', w:244, h:663, title:'Giraffe', blurb:'A tall, gentle giraffe reaching for cherries among the leaves.' },
-      { id:'tile-02', w:345, h:420, title:'Sausage Dog', blurb:'A long dog in a striped, heart-dotted sweater on an embossed ground.' },
-      { id:'tile-03', w:270, h:406, title:'Autumn Window', blurb:'A cat dozing by a window as the maples turn \u2014 gold, rust and sky.' },
-      { id:'tile-04', w:288, h:444, title:'Gull on the Rocks', blurb:'A gull resting on a rock between a green sky and a blue sea.' },
-      { id:'tile-05', w:272, h:355, title:'Cat & Tulips', blurb:'A white cat keeping company with a jar of red tulips.' }
+    { c:'The Menagerie', cFa:'\u0628\u0627\u063a\u200c\u0648\u062d\u0634 \u06a9\u0648\u0686\u06a9', no:'IV', note:'creatures & corners', noteFa:'\u062d\u06cc\u0648\u0627\u0646\u0627\u062a \u0648 \u06af\u0648\u0634\u0647\u200c\u0647\u0627', medium:'Painted & glazed clay', mediumFa:'\u0633\u0641\u0627\u0644 \u0646\u0642\u0627\u0634\u06cc \u0648 \u0644\u0639\u0627\u0628\u200c\u062e\u0648\u0631\u062f\u0647', items:[
+      { id:'tile-01', w:244, h:663, title:'Giraffe', titleFa:'\u0632\u0631\u0627\u0641\u0647', blurb:'A tall, gentle giraffe reaching for cherries among the leaves.', blurbFa:'\u0632\u0631\u0627\u0641\u0647\u200c\u0627\u06cc \u0628\u0644\u0646\u062f \u0648 \u0622\u0631\u0627\u0645 \u06a9\u0647 \u0645\u06cc\u0627\u0646 \u0628\u0631\u06af\u200c\u0647\u0627 \u0628\u0647 \u0633\u0631\u0627\u063a \u06af\u06cc\u0644\u0627\u0633\u200c\u0647\u0627 \u0645\u06cc\u200c\u0631\u0648\u062f.' },
+      { id:'tile-02', w:345, h:420, title:'Sausage Dog', titleFa:'\u0633\u06af \u0633\u0648\u0633\u06cc\u0633\u06cc', blurb:'A long dog in a striped, heart-dotted sweater on an embossed ground.', blurbFa:'\u0633\u06af\u06cc \u062f\u0631\u0627\u0632 \u0628\u0627 \u0698\u0627\u06a9\u062a \u0631\u0627\u0647\u200c\u0631\u0627\u0647 \u0648 \u0642\u0644\u0628\u200c\u0646\u0634\u0627\u0646 \u0631\u0648\u06cc \u0632\u0645\u06cc\u0646\u0647\u200c\u06cc \u0646\u0642\u0634\u200c\u0628\u0631\u062c\u0633\u062a\u0647.' },
+      { id:'tile-03', w:270, h:406, title:'Autumn Window', titleFa:'\u067e\u0646\u062c\u0631\u0647\u200c\u06cc \u067e\u0627\u06cc\u06cc\u0632', blurb:'A cat dozing by a window as the maples turn \u2014 gold, rust and sky.', blurbFa:'\u06af\u0631\u0628\u0647\u200c\u0627\u06cc \u06a9\u0646\u0627\u0631 \u067e\u0646\u062c\u0631\u0647 \u0686\u0631\u062a \u0645\u06cc\u200c\u0632\u0646\u062f \u0648 \u0622\u0646\u200c\u0633\u0648 \u0627\u0641\u0631\u0627\u0647\u0627 \u0631\u0646\u06af \u067e\u0627\u06cc\u06cc\u0632 \u06af\u0631\u0641\u062a\u0647\u200c\u0627\u0646\u062f.' },
+      { id:'tile-04', w:288, h:444, title:'Gull on the Rocks', titleFa:'\u0645\u0631\u063a \u062f\u0631\u06cc\u0627\u06cc\u06cc', blurb:'A gull resting on a rock between a green sky and a blue sea.', blurbFa:'\u0645\u0631\u063a\u06cc \u062f\u0631\u06cc\u0627\u06cc\u06cc \u0631\u0648\u06cc \u0635\u062e\u0631\u0647\u060c \u0645\u06cc\u0627\u0646 \u0622\u0633\u0645\u0627\u0646 \u0633\u0628\u0632 \u0648 \u062f\u0631\u06cc\u0627\u06cc \u0622\u0628\u06cc.' },
+      { id:'tile-05', w:272, h:355, title:'Cat & Tulips', titleFa:'\u06af\u0631\u0628\u0647 \u0648 \u0644\u0627\u0644\u0647\u200c\u0647\u0627', blurb:'A white cat keeping company with a jar of red tulips.', blurbFa:'\u06af\u0631\u0628\u0647\u200c\u0627\u06cc \u0633\u0641\u06cc\u062f \u062f\u0631 \u06a9\u0646\u0627\u0631 \u06af\u0644\u062f\u0627\u0646\u06cc \u0627\u0632 \u0644\u0627\u0644\u0647\u200c\u0647\u0627\u06cc \u0633\u0631\u062e.' }
     ]}
   ];
 
   src(id) { return 'assets/catalog/' + id + '.png'; }
+
+  componentDidMount() {
+    try { const s = localStorage.getItem('dform-lang'); if (s === 'fa') this.setState({ lang: 'fa' }); } catch(e) {}
+  }
+
+  toggleLang = () => {
+    this.setState(s => {
+      const next = s.lang === 'en' ? 'fa' : 'en';
+      try { localStorage.setItem('dform-lang', next); } catch(e) {}
+      return { lang: next };
+    });
+  };
 
   openPiece = (e) => { this.setState({ selected: e.currentTarget.dataset.id }); };
   closeDetail = () => { this.setState({ selected: null }); };
@@ -159,11 +203,24 @@ class Component extends DCLogic {
   }
 
   renderVals() {
+    const lang = this.state.lang;
+    const fa = lang === 'fa';
+    const t = this.STR[lang];
+    const fam = fa ? "'Ravi',Tahoma,sans-serif" : "'Space Mono',monospace";
+    const dir = fa ? 'rtl' : 'ltr';
+    const rootStyle = { fontFamily: fam, direction: dir, color: '#28201a', background: '#dbdcd5', minHeight: '100vh' };
+    const toggleStyle = fa
+      ? { fontFamily: "'Space Mono',monospace", fontSize: '11px', letterSpacing: '.16em', color: '#28201a', background: 'transparent', border: '1.5px solid #28201a', padding: '6px 12px', cursor: 'pointer', borderRadius: '0' }
+      : { fontFamily: "'Ravi',Tahoma,sans-serif", fontSize: '14px', color: '#28201a', background: 'transparent', border: '1.5px solid #28201a', padding: '5px 13px', cursor: 'pointer', borderRadius: '0' };
+
     let n = 1;
     const collections = this.CATALOG.map(col => ({
-      no: col.no, name: col.c, note: col.note,
+      no: col.no,
+      name: fa ? col.cFa : col.c,
+      note: fa ? col.noteFa : col.note,
       items: col.items.map(it => ({
-        id: it.id, no: String(n++).padStart(2,'0'), title: it.title,
+        id: it.id, no: String(n++).padStart(2,'0'),
+        title: fa ? it.titleFa : it.title,
         imgStyle: {
           width: '100%', maxWidth: Math.round(170 * (it.w/it.h)) + 'px', aspectRatio: it.w + '/' + it.h,
           maxHeight: '230px',
@@ -176,7 +233,10 @@ class Component extends DCLogic {
 
     const found = this.state.selected ? this.findItem(this.state.selected) : null;
     const sel = found ? {
-      title: found.it.title, blurb: found.it.blurb, collection: found.col.c, medium: found.col.medium,
+      title: fa ? found.it.titleFa : found.it.title,
+      blurb: fa ? found.it.blurbFa : found.it.blurb,
+      collection: fa ? found.col.cFa : found.col.c,
+      medium: fa ? found.col.mediumFa : found.col.medium,
       detailStyle: {
         width: '74%', maxWidth: '300px', aspectRatio: found.it.w + '/' + found.it.h,
         backgroundImage: 'url("' + this.src(found.it.id) + '")',
@@ -186,8 +246,11 @@ class Component extends DCLogic {
     } : { title:'', blurb:'', collection:'', medium:'', detailStyle:{} };
 
     let count = 0; this.CATALOG.forEach(c => count += c.items.length);
+    const eyebrow = t.eyebrow.replace('{{count}}', count);
 
-    return { collections, count, sel, showDetail: !!found, openPiece: this.openPiece, closeDetail: this.closeDetail };
+    return { rootStyle, toggleStyle, t, eyebrow,
+      collections, count, sel, showDetail: !!found,
+      toggleLang: this.toggleLang, openPiece: this.openPiece, closeDetail: this.closeDetail };
   }
 }
 </script>

@@ -153,10 +153,21 @@ class Component extends DCLogic {
   };
 
   componentDidMount() {
-    try { const p = new URLSearchParams(location.search).get('lang'); if (p === 'fa') this.setState({ lang: 'fa' }); } catch (e) {}
+    try {
+      const s = localStorage.getItem('dform-lang');
+      if (s === 'fa') { this.setState({ lang: 'fa' }); return; }
+      const p = new URLSearchParams(location.search).get('lang');
+      if (p === 'fa') this.setState({ lang: 'fa' });
+    } catch (e) {}
   }
 
-  toggleLang = () => { this.setState(s => ({ lang: s.lang === 'en' ? 'fa' : 'en' })); };
+  toggleLang = () => {
+    this.setState(s => {
+      const next = s.lang === 'en' ? 'fa' : 'en';
+      try { localStorage.setItem('dform-lang', next); } catch(e) {}
+      return { lang: next };
+    });
+  };
   openPiece = (e) => { this.setState({ selected: e.currentTarget.dataset.id }); };
   closeDetail = () => { this.setState({ selected: null }); };
 

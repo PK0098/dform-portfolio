@@ -33,15 +33,17 @@ body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
 if (window.top === window.self && window.matchMedia('(max-width: 760px)').matches) { location.replace('mobile.html'); }
 </script>
 </helmet>
-<div style="font-family:'Space Mono',monospace;color:#28201a;background:#dbdcd5;min-height:100vh;position:relative;">
+<div style="{{ rootStyle }}">
 
   <header style="position:fixed;top:0;left:0;right:0;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 max(20px,3vw);z-index:1500;background:rgba(219,220,213,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid #c7c8c1;">
     <a href="#wall" style="display:flex;align-items:center;text-decoration:none;">
       <img src="assets/logotype_english.svg" alt="DForm" style="height:30px;display:block;">
     </a>
     <nav style="display:flex;gap:clamp(16px,2.4vw,30px);align-items:center;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#28201a;">
-      <a href="#studio" style="color:inherit;text-decoration:none;padding-bottom:2px;border-bottom:1.5px solid transparent;" style-hover="color:#f06924;border-bottom-color:#f06924;">Studio</a>
-      <a href="#contact" style="color:inherit;text-decoration:none;padding-bottom:2px;border-bottom:1.5px solid transparent;" style-hover="color:#f06924;border-bottom-color:#f06924;">Contact</a>
+      <a href="products.html" style="color:inherit;text-decoration:none;padding-bottom:2px;border-bottom:1.5px solid transparent;" style-hover="color:#f06924;border-bottom-color:#f06924;">{{ t.navObjects }}</a>
+      <a href="#studio" style="color:inherit;text-decoration:none;padding-bottom:2px;border-bottom:1.5px solid transparent;" style-hover="color:#f06924;border-bottom-color:#f06924;">{{ t.navStudio }}</a>
+      <a href="#contact" style="color:inherit;text-decoration:none;padding-bottom:2px;border-bottom:1.5px solid transparent;" style-hover="color:#f06924;border-bottom-color:#f06924;">{{ t.navContact }}</a>
+      <button onClick="{{ toggleLang }}" style="{{ toggleStyle }}">{{ t.toggle }}</button>
     </nav>
   </header>
 
@@ -51,11 +53,11 @@ if (window.top === window.self && window.matchMedia('(max-width: 760px)').matche
 
     <div style="position:absolute;left:max(20px,4vw);top:120px;max-width:430px;z-index:6;pointer-events:none;">
       <div style="display:flex;align-items:center;gap:9px;font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:#5c544c;">
-        <span style="width:7px;height:7px;background:#f06924;display:inline-block;"></span>Handmade · One of one
+        <span style="width:7px;height:7px;background:#f06924;display:inline-block;"></span>{{ t.eyebrow }}
       </div>
-      <h1 style="font-size:clamp(34px,5.2vw,64px);font-weight:700;line-height:1.02;letter-spacing:-.03em;margin:16px 0 0;">A wall of small worlds.</h1>
-      <p style="margin:20px 0 0;font-size:14px;line-height:1.7;color:#5c544c;max-width:370px;">Tiny clay tiles, painted and glazed by hand — each one entirely its own. Drag the pieces around. Make the wall yours.</p>
-      <a href="products.html" style="pointer-events:auto;display:inline-flex;align-items:center;gap:10px;margin-top:26px;background:#28201a;color:#dbdcd5;text-decoration:none;font-size:12px;letter-spacing:.18em;text-transform:uppercase;padding:14px 22px;border:1.5px solid #28201a;" style-hover="background:#f06924;border-color:#f06924;color:#fff;">View all 20 pieces<span style="font-size:15px;line-height:1;">→</span></a>
+      <h1 style="font-size:clamp(34px,5.2vw,64px);font-weight:700;line-height:1.02;letter-spacing:-.03em;margin:16px 0 0;">{{ t.h1 }}</h1>
+      <p style="margin:20px 0 0;font-size:14px;line-height:1.7;color:#5c544c;max-width:370px;">{{ t.sub }}</p>
+      <a href="products.html" style="pointer-events:auto;display:inline-flex;align-items:center;gap:10px;margin-top:26px;background:#28201a;color:#dbdcd5;text-decoration:none;font-size:12px;letter-spacing:.18em;text-transform:uppercase;padding:14px 22px;border:1.5px solid #28201a;" style-hover="background:#f06924;border-color:#f06924;color:#fff;">{{ t.viewAll }}<span style="font-size:15px;line-height:1;">{{ t.arrow }}</span></a>
     </div>
 
     <sc-for list="{{ pieces }}" as="piece">
@@ -69,23 +71,23 @@ if (window.top === window.self && window.matchMedia('(max-width: 760px)').matche
     </sc-for>
 
     <div style="position:absolute;bottom:24px;left:50%;transform:translateX(-50%);font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:#8a837a;pointer-events:none;display:flex;align-items:center;gap:10px;">
-      <span style="font-size:13px;">⠿</span>drag the pieces · click to open
+      <span style="font-size:13px;">⠿</span>{{ t.dragHint }}
     </div>
 
-    <button onClick="{{ resetWall }}" style="position:absolute;bottom:18px;right:max(16px,2vw);font-family:inherit;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#28201a;background:transparent;border:1.5px solid #28201a;padding:8px 12px;cursor:pointer;border-radius:0;" style-hover="background:#28201a;color:#dbdcd5;">↺ reset wall</button>
+    <button onClick="{{ resetWall }}" style="position:absolute;bottom:18px;right:max(16px,2vw);font-family:inherit;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#28201a;background:transparent;border:1.5px solid #28201a;padding:8px 12px;cursor:pointer;border-radius:0;" style-hover="background:#28201a;color:#dbdcd5;">{{ t.reset }}</button>
   </section>
 
   <section id="studio" style="background:#28201a;color:#dbdcd5;scroll-margin-top:64px;">
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));align-items:stretch;">
       <div style="min-height:520px;background:#2f2820;background-image:url('assets/studio-2.jpg');background-size:cover;background-position:center;"></div>
       <div style="padding:clamp(40px,5vw,80px);display:flex;flex-direction:column;justify-content:center;">
-        <div style="font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:#f9bd41;">The Studio</div>
-        <h2 style="font-size:clamp(26px,3.2vw,40px);font-weight:700;letter-spacing:-.02em;line-height:1.06;margin:18px 0 0;">Made by hand,<br>one at a time.</h2>
-        <p style="font-size:14px;line-height:1.8;color:#9b948b;margin:24px 0 0;max-width:440px;">Every DForm object begins as a small slab of clay — pressed, textured and edged by hand, then painted in miniature and glazed. The marks of the maker stay in the surface, so no two pieces are ever alike.</p>
-        <p style="font-size:14px;line-height:1.8;color:#9b948b;margin:16px 0 0;max-width:440px;">A quiet menagerie of cats, dogs, birds and gardens — collectable objects made to be lived with.</p>
+        <div style="font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:#f9bd41;">{{ t.studioLabel }}</div>
+        <h2 style="font-size:clamp(26px,3.2vw,40px);font-weight:700;letter-spacing:-.02em;line-height:1.06;margin:18px 0 0;">{{ t.studioH }}</h2>
+        <p style="font-size:14px;line-height:1.8;color:#9b948b;margin:24px 0 0;max-width:440px;">{{ t.studioP1 }}</p>
+        <p style="font-size:14px;line-height:1.8;color:#9b948b;margin:16px 0 0;max-width:440px;">{{ t.studioP2 }}</p>
         <div style="display:flex;gap:40px;margin-top:36px;flex-wrap:wrap;">
-          <div><div style="font-size:30px;font-weight:700;letter-spacing:-.02em;">1/1</div><div style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#9b948b;margin-top:6px;">every piece unique</div></div>
-          <div><div style="font-size:30px;font-weight:700;letter-spacing:-.02em;">100%</div><div style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#9b948b;margin-top:6px;">hand-painted</div></div>
+          <div><div style="font-size:30px;font-weight:700;letter-spacing:-.02em;">{{ t.stat1 }}</div><div style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#9b948b;margin-top:6px;">{{ t.stat1lab }}</div></div>
+          <div><div style="font-size:30px;font-weight:700;letter-spacing:-.02em;">{{ t.stat2 }}</div><div style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#9b948b;margin-top:6px;">{{ t.stat2lab }}</div></div>
         </div>
       </div>
     </div>
@@ -95,23 +97,23 @@ if (window.top === window.self && window.matchMedia('(max-width: 760px)').matche
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:40px;align-items:start;">
       <div>
         <img src="assets/logotype_english.svg" alt="DForm" style="height:40px;display:block;">
-        <p style="font-size:13px;line-height:1.7;color:#5c544c;margin:20px 0 0;max-width:280px;">Collectable handmade objects for the home.</p>
+        <p style="font-size:13px;line-height:1.7;color:#5c544c;margin:20px 0 0;max-width:280px;">{{ t.footerTag }}</p>
       </div>
       <div>
-        <div style="font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:#8a837a;">Contact</div>
+        <div style="font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:#8a837a;">{{ t.contactLabel }}</div>
         <div style="display:flex;flex-direction:column;gap:12px;margin-top:16px;font-size:13px;">
           <a href="mailto:studio@dform.shop" style="display:flex;align-items:center;gap:9px;color:#28201a;text-decoration:none;" style-hover="color:#f06924;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14"></rect><path d="M3 6l9 7 9-7"></path></svg>studio@dform.shop</a>
           <a href="https://instagram.com/dform.objects" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:9px;color:#28201a;text-decoration:none;" style-hover="color:#f06924;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4.2"></circle><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"></circle></svg>@dform.objects</a>
         </div>
       </div>
       <div>
-        <div style="font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:#8a837a;">Acquire</div>
-        <p style="font-size:13px;line-height:1.7;color:#5c544c;margin:16px 0 0;max-width:260px;">Pieces are sold individually. Found one you love on the wall? Click it, then enquire — each is one of one.</p>
+        <div style="font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:#8a837a;">{{ t.acquire }}</div>
+        <p style="font-size:13px;line-height:1.7;color:#5c544c;margin:16px 0 0;max-width:260px;">{{ t.acquireText }}</p>
       </div>
     </div>
     <div style="display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-top:56px;padding-top:20px;border-top:1px solid #c7c8c1;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#8a837a;">
-      <span>© 2026 DForm — all pieces one of a kind</span>
-      <span>Made by hand</span>
+      <span>{{ t.copyright }}</span>
+      <span>{{ t.madeByHand }}</span>
     </div>
   </footer>
 
@@ -120,7 +122,7 @@ if (window.top === window.self && window.matchMedia('(max-width: 760px)').matche
       <div onClick="{{ closeDetail }}" style="position:absolute;inset:0;background:rgba(40,32,26,.45);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);animation:dfDim .25s ease;"></div>
       <aside style="position:absolute;top:0;right:0;height:100%;width:min(430px,100%);background:#fff;border-left:1.5px solid #28201a;animation:dfPanel .34s cubic-bezier(.2,.85,.2,1);display:flex;flex-direction:column;overflow:auto;">
         <div style="display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1.5px solid #28201a;position:sticky;top:0;background:#fff;z-index:2;">
-          <span style="font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#8a837a;">DForm · No. {{ selPiece.no }}</span>
+          <span style="font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#8a837a;">{{ t.meta }}{{ selPiece.no }}</span>
           <button onClick="{{ closeDetail }}" style="font-family:inherit;font-size:18px;line-height:1;background:transparent;border:1.5px solid #28201a;width:34px;height:34px;cursor:pointer;color:#28201a;border-radius:0;" style-hover="background:#f06924;border-color:#f06924;color:#fff;">×</button>
         </div>
         <div style="background:#e3e4dd;padding:32px;display:flex;justify-content:center;align-items:center;">
@@ -131,13 +133,13 @@ if (window.top === window.self && window.matchMedia('(max-width: 760px)').matche
           <h3 style="font-size:26px;font-weight:700;letter-spacing:-.02em;line-height:1.1;margin:12px 0 0;">{{ selPiece.title }}</h3>
           <p style="font-size:13px;line-height:1.7;color:#5c544c;margin:16px 0 0;">{{ selPiece.blurb }}</p>
           <div style="margin-top:24px;border-top:1px solid #c7c8c1;">
-            <div style="display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px solid #c7c8c1;font-size:12px;"><span style="color:#8a837a;letter-spacing:.06em;">Materials</span><span style="text-align:right;max-width:62%;">{{ selPiece.materials }}</span></div>
-            <div style="display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px solid #c7c8c1;font-size:12px;"><span style="color:#8a837a;letter-spacing:.06em;">Dimensions</span><span>{{ selPiece.dims }}</span></div>
-            <div style="display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px solid #c7c8c1;font-size:12px;"><span style="color:#8a837a;letter-spacing:.06em;">Year</span><span>{{ selPiece.year }}</span></div>
-            <div style="display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px solid #c7c8c1;font-size:12px;"><span style="color:#8a837a;letter-spacing:.06em;">Edition</span><span>{{ selPiece.edition }}</span></div>
+            <div style="display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px solid #c7c8c1;font-size:12px;"><span style="color:#8a837a;letter-spacing:.06em;">{{ t.specMaterials }}</span><span style="text-align:right;max-width:62%;">{{ selPiece.materials }}</span></div>
+            <div style="display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px solid #c7c8c1;font-size:12px;"><span style="color:#8a837a;letter-spacing:.06em;">{{ t.specDims }}</span><span>{{ selPiece.dims }}</span></div>
+            <div style="display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px solid #c7c8c1;font-size:12px;"><span style="color:#8a837a;letter-spacing:.06em;">{{ t.specYear }}</span><span>{{ selPiece.year }}</span></div>
+            <div style="display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px solid #c7c8c1;font-size:12px;"><span style="color:#8a837a;letter-spacing:.06em;">{{ t.specEdition }}</span><span>{{ selPiece.edition }}</span></div>
           </div>
-          <a href="https://instagram.com/dform.objects" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;gap:10px;text-align:center;margin-top:26px;background:#28201a;color:#dbdcd5;text-decoration:none;font-size:12px;letter-spacing:.18em;text-transform:uppercase;padding:16px;border:1.5px solid #28201a;" style-hover="background:#f06924;border-color:#f06924;color:#fff;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4.2"></circle><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"></circle></svg>Message on Instagram</a>
-          <p style="font-size:10px;letter-spacing:.06em;color:#8a837a;text-align:center;margin:14px 0 0;line-height:1.6;">One of one · ships worldwide from the studio</p>
+          <a href="https://instagram.com/dform.objects" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;gap:10px;text-align:center;margin-top:26px;background:#28201a;color:#dbdcd5;text-decoration:none;font-size:12px;letter-spacing:.18em;text-transform:uppercase;padding:16px;border:1.5px solid #28201a;" style-hover="background:#f06924;border-color:#f06924;color:#fff;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4.2"></circle><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"></circle></svg>{{ t.enquire }}</a>
+          <p style="font-size:10px;letter-spacing:.06em;color:#8a837a;text-align:center;margin:14px 0 0;line-height:1.6;">{{ t.shipNote }}</p>
         </div>
       </aside>
     </div>
@@ -147,15 +149,50 @@ if (window.top === window.self && window.matchMedia('(max-width: 760px)').matche
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  state = { positions: null, ready: false, selected: null };
+  state = { positions: null, ready: false, selected: null, lang: 'en' };
 
   PRODUCTS = [
-    { id:'autumn-cat', src:'assets/products/cropped/autumn-cat.png', no:'01', title:'Autumn Window', titleFa:'پنجره‌ی پاییز', price:'€180', materials:'Painted & glazed clay, silver-leaf frame', dims:'9 × 12 cm', year:'2024', edition:'1 of 1', medium:'Glazed clay', status:'Available', statusColor:'#1f6b3b', blurb:'A cat dozing by a window as the maples turn — gold, rust and a slip of blue sky.', w:172, rot:-3, lx:0.50, ty:0.12, alt:'Hand-painted clay tile of a cat by an autumn window' },
-    { id:'cat-tulips', src:'assets/products/cropped/cat-tulips.png', no:'02', title:'Cat & Tulips', titleFa:'گربه و لاله‌ها', price:'€165', materials:'Painted & glazed clay', dims:'10 × 13 cm', year:'2024', edition:'1 of 1', medium:'Glazed clay', status:'Available', statusColor:'#1f6b3b', blurb:'A white cat keeping company with a jar of red tulips against a deep red ground.', w:190, rot:2.5, lx:0.73, ty:0.30, alt:'Hand-painted clay tile of a white cat beside red tulips' },
-    { id:'dachshund', src:'assets/products/cropped/dachshund.png', no:'03', title:'Sausage Dog', titleFa:'سگ سوسیسی', price:'€150', materials:'Painted & embossed clay', dims:'12 × 14 cm', year:'2023', edition:'1 of 1', medium:'Embossed clay', status:'Reserved', statusColor:'#b07a16', blurb:'A long dog in a striped, heart-dotted sweater above a richly embossed ground.', w:204, rot:-1.8, lx:0.39, ty:0.60, alt:'Hand-painted clay tile of a dachshund in a striped sweater' },
-    { id:'giraffe', src:'assets/products/cropped/giraffe.png', no:'04', title:'Giraffe', titleFa:'زرافه', price:'€190', materials:'Painted & glazed clay', dims:'7 × 17 cm', year:'2024', edition:'1 of 1', medium:'Glazed clay', status:'Available', statusColor:'#1f6b3b', blurb:'A tall, gentle giraffe reaching for cherries among the leaves.', w:98, rot:3, lx:0.89, ty:0.13, alt:'Hand-painted tall clay tile of a giraffe among leaves' },
-    { id:'seagull', src:'assets/products/cropped/seagull.png', no:'05', title:'Gull on the Rocks', titleFa:'مرغ دریایی', price:'€175', materials:'Painted clay, oval relief', dims:'11 × 15 cm', year:'2023', edition:'1 of 1', medium:'Relief clay', status:'Sold', statusColor:'#8a837a', blurb:'A gull resting on a rock between a green sky and a blue sea.', w:188, rot:-1.5, lx:0.60, ty:0.52, alt:'Hand-painted oval clay tile of a gull on a rock' }
+    { id:'autumn-cat', src:'assets/products/cropped/autumn-cat.png', no:'01', title:'Autumn Window', titleFa:'پنجره‌ی پاییز', price:'€180', materials:'Painted & glazed clay, silver-leaf frame', materialsFa:'سفال نقاشی و لعاب‌خورده، قاب نقره‌کوب', dims:'9 × 12 cm', dimsFa:'۹ × ۱۲ سانتی‌متر', year:'2024', edition:'1 of 1', editionFa:'تک‌نسخه', medium:'Glazed clay', status:'Available', statusFa:'موجود', statusColor:'#1f6b3b', blurb:'A cat dozing by a window as the maples turn — gold, rust and a slip of blue sky.', blurbFa:'گربه‌ای کنار پنجره چرت می‌زند و آن‌سو افراها رنگ پاییز گرفته‌اند؛ طلایی، زنگاری و باریکه‌ای از آسمان آبی.', w:172, rot:-3, lx:0.50, ty:0.12, alt:'Hand-painted clay tile of a cat by an autumn window' },
+    { id:'cat-tulips', src:'assets/products/cropped/cat-tulips.png', no:'02', title:'Cat & Tulips', titleFa:'گربه و لاله‌ها', price:'€165', materials:'Painted & glazed clay', materialsFa:'سفال نقاشی و لعاب‌خورده', dims:'10 × 13 cm', dimsFa:'۱۰ × ۱۳ سانتی‌متر', year:'2024', edition:'1 of 1', editionFa:'تک‌نسخه', medium:'Glazed clay', status:'Available', statusFa:'موجود', statusColor:'#1f6b3b', blurb:'A white cat keeping company with a jar of red tulips against a deep red ground.', blurbFa:'گربه‌ای سفید در کنار گلدانی از لاله‌های سرخ روی زمینه‌ای گرم و سرخ.', w:190, rot:2.5, lx:0.73, ty:0.30, alt:'Hand-painted clay tile of a white cat beside red tulips' },
+    { id:'dachshund', src:'assets/products/cropped/dachshund.png', no:'03', title:'Sausage Dog', titleFa:'سگ سوسیسی', price:'€150', materials:'Painted & embossed clay', materialsFa:'سفال نقاشی و نقش‌برجسته', dims:'12 × 14 cm', dimsFa:'۱۲ × ۱۴ سانتی‌متر', year:'2023', edition:'1 of 1', editionFa:'تک‌نسخه', medium:'Embossed clay', status:'Reserved', statusFa:'رزرو شده', statusColor:'#b07a16', blurb:'A long dog in a striped, heart-dotted sweater above a richly embossed ground.', blurbFa:'سگی دراز با ژاکت راه‌راه و قلب‌نشان، روی زمینه‌ای غنی نقش‌برجسته.', w:204, rot:-1.8, lx:0.39, ty:0.60, alt:'Hand-painted clay tile of a dachshund in a striped sweater' },
+    { id:'giraffe', src:'assets/products/cropped/giraffe.png', no:'04', title:'Giraffe', titleFa:'زرافه', price:'€190', materials:'Painted & glazed clay', materialsFa:'سفال نقاشی و لعاب‌خورده', dims:'7 × 17 cm', dimsFa:'۷ × ۱۷ سانتی‌متر', year:'2024', edition:'1 of 1', editionFa:'تک‌نسخه', medium:'Glazed clay', status:'Available', statusFa:'موجود', statusColor:'#1f6b3b', blurb:'A tall, gentle giraffe reaching for cherries among the leaves.', blurbFa:'زرافه‌ای بلند و آرام که میان برگ‌ها به سراغ گیلاس‌ها می‌رود.', w:98, rot:3, lx:0.89, ty:0.13, alt:'Hand-painted tall clay tile of a giraffe among leaves' },
+    { id:'seagull', src:'assets/products/cropped/seagull.png', no:'05', title:'Gull on the Rocks', titleFa:'مرغ دریایی', price:'€175', materials:'Painted clay, oval relief', materialsFa:'سفال نقاشی، نقش‌برجستهٔ بیضی', dims:'11 × 15 cm', dimsFa:'۱۱ × ۱۵ سانتی‌متر', year:'2023', edition:'1 of 1', editionFa:'تک‌نسخه', medium:'Relief clay', status:'Sold', statusFa:'فروخته شده', statusColor:'#8a837a', blurb:'A gull resting on a rock between a green sky and a blue sea.', blurbFa:'مرغی دریایی که روی صخره‌ای میان آسمان سبز و دریای آبی آرام گرفته.', w:188, rot:-1.5, lx:0.60, ty:0.52, alt:'Hand-painted oval clay tile of a gull on a rock' }
   ];
+
+  STR = {
+    en: {
+      toggle: 'فارسی', navObjects: 'Objects', navStudio: 'Studio', navContact: 'Contact',
+      eyebrow: 'Handmade · One of one', h1: 'A wall of small worlds.',
+      sub: 'Tiny clay tiles, painted and glazed by hand — each one entirely its own. Drag the pieces around. Make the wall yours.',
+      viewAll: 'View all 20 pieces', arrow: '→',
+      dragHint: 'drag the pieces · click to open', reset: '↺ reset wall',
+      studioLabel: 'The Studio', studioH: 'Made by hand,\none at a time.',
+      studioP1: 'Every DForm object begins as a small slab of clay — pressed, textured and edged by hand, then painted in miniature and glazed. The marks of the maker stay in the surface, so no two pieces are ever alike.',
+      studioP2: 'A quiet menagerie of cats, dogs, birds and gardens — collectable objects made to be lived with.',
+      stat1: '1/1', stat1lab: 'every piece unique', stat2: '100%', stat2lab: 'hand-painted',
+      footerTag: 'Collectable handmade objects for the home.', contactLabel: 'Contact',
+      acquire: 'Acquire', acquireText: 'Pieces are sold individually. Found one you love on the wall? Click it, then enquire — each is one of one.',
+      copyright: '© 2026 DForm — all pieces one of a kind', madeByHand: 'Made by hand',
+      meta: 'DForm · No. ', enquire: 'Message on Instagram', shipNote: 'One of one · ships worldwide from the studio',
+      specMaterials: 'Materials', specDims: 'Dimensions', specYear: 'Year', specEdition: 'Edition'
+    },
+    fa: {
+      toggle: 'EN', navObjects: 'آثار', navStudio: 'استودیو', navContact: 'تماس',
+      eyebrow: 'دست‌ساز · تک‌نسخه', h1: 'دیواری از دنیاهای کوچک.',
+      sub: 'کاشی‌های سفالی کوچک، نقاشی و لعاب‌خورده با دست — هرکدام کاملاً یکتا. قطعه‌ها را بکشید. دیوار را از آن خود کنید.',
+      viewAll: 'دیدن همهٔ ۲۰ قطعه', arrow: '←',
+      dragHint: 'قطعه‌ها را بکشید · کلیک کنید تا باز شوند', reset: '↺ بازنشانی دیوار',
+      studioLabel: 'استودیو', studioH: 'ساخته‌شده با دست، یکی‌یکی.',
+      studioP1: 'هر شیء دی‌فرم از ورقه‌ای کوچک از گِل آغاز می‌شود؛ با دست فشرده، بافت‌دار و لبه‌زده می‌شود و سپس در ابعادی کوچک نقاشی و لعاب می‌خورد. هیچ دو قطعه‌ای شبیه هم نیستند.',
+      studioP2: 'مجموعه‌ای آرام از گربه‌ها، سگ‌ها، پرنده‌ها و باغ‌ها — اشیایی کلکسیونی برای زندگی‌کردن در کنارشان.',
+      stat1: '۱/۱', stat1lab: 'هر قطعه یکتا', stat2: '۱۰۰٪', stat2lab: 'نقاشی دستی',
+      footerTag: 'اشیای دست‌سازِ کلکسیونی برای خانه.', contactLabel: 'تماس',
+      acquire: 'خرید', acquireText: 'قطعه‌ها تک‌تک فروخته می‌شوند. روی دیوار یکی پیدا کردید که دوستش دارید؟ کلیک کنید و سفارش دهید — هر کدام تک‌نسخه است.',
+      copyright: '© ۲۰۲۶ دی‌فرم — همهٔ قطعه‌ها تک‌نسخه', madeByHand: 'ساخته‌ی دست',
+      meta: 'دی‌فرم · شمارهٔ ', enquire: 'پیام در اینستاگرام', shipNote: 'تک‌نسخه · ارسال به سراسر جهان از استودیو',
+      specMaterials: 'جنس', specDims: 'اندازه', specYear: 'سال', specEdition: 'نسخه'
+    }
+  };
 
   wallRef = React.createRef();
   maxZ = 5;
@@ -166,12 +203,21 @@ class Component extends DCLogic {
     window.addEventListener('pointerup', this.onUp);
     window.addEventListener('resize', this.onResize);
     this.seed();
+    try { const s = localStorage.getItem('dform-lang'); if (s === 'fa') this.setState({ lang: 'fa' }); } catch(e) {}
   }
   componentWillUnmount() {
     window.removeEventListener('pointermove', this.onMove);
     window.removeEventListener('pointerup', this.onUp);
     window.removeEventListener('resize', this.onResize);
   }
+
+  toggleLang = () => {
+    this.setState(s => {
+      const next = s.lang === 'en' ? 'fa' : 'en';
+      try { localStorage.setItem('dform-lang', next); } catch(e) {}
+      return { lang: next };
+    });
+  };
 
   getWall() { return this.wallRef.current ? this.wallRef.current.getBoundingClientRect() : null; }
   clampX(x, w, W) { return Math.max(10, Math.min(x, Math.max(10, W - w - 10))); }
@@ -276,6 +322,12 @@ class Component extends DCLogic {
   }
 
   renderVals() {
+    const lang = this.state.lang || 'en';
+    const fa = lang === 'fa';
+    const t = this.STR[lang];
+    const rootStyle = { fontFamily: fa ? "'Ravi', serif" : "'Space Mono', monospace", direction: fa ? 'rtl' : 'ltr' };
+    const toggleStyle = { fontFamily: fa ? "'Space Mono', monospace" : "'Ravi', serif" };
+
     const positions = this.state.positions || {};
     const ready = this.state.ready;
     const RATIO = { 'autumn-cat': 802/547, 'cat-tulips': 716/548, 'dachshund': 699/574, 'giraffe': 828/305, 'seagull': 815/574 };
@@ -300,16 +352,24 @@ class Component extends DCLogic {
     const sel = this.state.selected ? this.PRODUCTS.find(p => p.id === this.state.selected) : null;
     const selPiece = sel ? {
       ...sel,
+      title: fa ? sel.titleFa : sel.title,
+      blurb: fa ? sel.blurbFa : sel.blurb,
+      materials: fa ? sel.materialsFa : sel.materials,
+      dims: fa ? sel.dimsFa : sel.dims,
+      edition: fa ? sel.editionFa : sel.edition,
+      status: fa ? sel.statusFa : sel.status,
       detailStyle: { width:'70%', maxWidth:'300px', aspectRatio: RATIO[sel.id], backgroundImage:'url("'+sel.src+'")', backgroundSize:'contain', backgroundPosition:'center', backgroundRepeat:'no-repeat', filter:'drop-shadow(0 16px 20px rgba(40,32,26,.4))' },
-      statusStyle: { fontSize:'10px', letterSpacing:'.2em', textTransform:'uppercase', color:sel.statusColor, fontWeight:700, textAlign:'left' },
+      statusStyle: { fontSize:'10px', letterSpacing:'.2em', textTransform:'uppercase', color:sel.statusColor, fontWeight:700, textAlign: fa ? 'right' : 'left' },
       mailto: 'mailto:studio@dform.shop?subject=' + encodeURIComponent('Enquiry — ' + sel.title + ' (' + sel.no + ')')
-    } : { statusStyle:{}, no:'', title:'', titleFa:'', blurb:'', materials:'', dims:'', year:'', edition:'', price:'', status:'', src:'', alt:'', mailto:'#', detailStyle:{} };
+    } : { statusStyle:{}, no:'', title:'', blurb:'', materials:'', dims:'', year:'', edition:'', price:'', status:'', src:'', alt:'', mailto:'#', detailStyle:{} };
 
     return {
+      t, rootStyle, toggleStyle,
       pieces, indexRows, selPiece, showDetail: !!sel,
       wallRef: this.wallRef,
       startDrag: this.startDrag, resetWall: this.resetWall,
-      openFromIndex: this.openFromIndex, closeDetail: this.closeDetail
+      openFromIndex: this.openFromIndex, closeDetail: this.closeDetail,
+      toggleLang: this.toggleLang
     };
   }
 }
